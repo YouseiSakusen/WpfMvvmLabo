@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RootNamespace>HalationGhost.WinApps.DatabaseAccesses</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HalationGhostDbAccessHelper\HalationGhostDbAccessHelper.csproj" />
+    <ProjectReference Include="..\HalationGhostSqliteDataAccess\HalationGhostSqliteDataAccess.csproj" />
+  </ItemGroup>
+
+</Project>

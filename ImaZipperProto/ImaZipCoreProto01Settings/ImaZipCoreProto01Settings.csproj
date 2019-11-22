@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RootNamespace>HalationGhost.WinApps.ImaZip</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HalationGhostUtilities\HalationGhostUtilities.csproj" />
+  </ItemGroup>
+
+</Project>

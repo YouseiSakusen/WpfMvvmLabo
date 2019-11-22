@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RootNamespace>HalationGhost.WinApps.ImaZip</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ImaZipCoreProto01DataAccesses\ImaZipCoreProto01DataAccesses.csproj" />
+    <ProjectReference Include="..\ImaZipCoreProto01Models\ImaZipCoreProto01Models.csproj" />
+  </ItemGroup>
+
+</Project>

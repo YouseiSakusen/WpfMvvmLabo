@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# CA2000: スコープを失う前にオブジェクトを破棄
+dotnet_diagnostic.CA2000.severity = silent

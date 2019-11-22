@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RootNamespace>HalationGhost.WinApps.Services.CommonDialogs</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HalationGhostCommonDialogInnerServiceFactory\HalationGhostCommonDialogInnerServiceFactory.csproj" />
+    <ProjectReference Include="..\HalationGhostWinApiCommonDialogInnerService\HalationGhostWinApiCommonDialogInnerService.csproj" />
+  </ItemGroup>
+
+</Project>

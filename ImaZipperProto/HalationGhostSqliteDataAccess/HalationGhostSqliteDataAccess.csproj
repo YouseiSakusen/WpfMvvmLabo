@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RootNamespace>HalationGhost.WinApps.DatabaseAccesses.Sqlite</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.112" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HalationGhostDbAccessHelper\HalationGhostDbAccessHelper.csproj" />
+    <ProjectReference Include="..\HalationGhostUtilities\HalationGhostUtilities.csproj" />
+  </ItemGroup>
+
+</Project>
