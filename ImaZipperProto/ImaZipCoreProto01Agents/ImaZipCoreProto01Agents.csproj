@@ -6,8 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HalationGhostUtilities\HalationGhostUtilities.csproj" />
     <ProjectReference Include="..\ImaZipCoreProto01DataAccesses\ImaZipCoreProto01DataAccesses.csproj" />
     <ProjectReference Include="..\ImaZipCoreProto01Models\ImaZipCoreProto01Models.csproj" />
+    <ProjectReference Include="..\ImaZipCoreProto01Settings\ImaZipCoreProto01Settings.csproj" />
   </ItemGroup>
 
 </Project>

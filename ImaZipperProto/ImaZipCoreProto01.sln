@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImaZipCoreProto01", "ImaZipCoreProto01\ImaZipCoreProto01.csproj", "{826E575C-28B7-4D90-B21C-CDE7803763DC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0CAB0A2D-21BD-45D5-865B-9F19B3F34D25} = {0CAB0A2D-21BD-45D5-865B-9F19B3F34D25}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HalationGhostWpfViewModels", "HalationGhostWpfViewModels\HalationGhostWpfViewModels.csproj", "{1D4C59CB-863A-4600-822B-41B7EB1DA1C4}"
 EndProject
@@ -29,17 +32,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HalationGhostMessageBoxServ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HalationGhostPrismDialogExtensions", "HalationGhostPrismDialogExtensions\HalationGhostPrismDialogExtensions.csproj", "{708E2940-A779-4C6B-8F0B-04EE78D9457E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImaZipCreatoreProto01", "ImaZipCreatoreProto01\ImaZipCreatoreProto01.csproj", "{C99B26EF-00D8-462A-9AFA-81CE4383655E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImaZipCreatoreProto01", "ImaZipCreatoreProto01\ImaZipCreatoreProto01.csproj", "{C99B26EF-00D8-462A-9AFA-81CE4383655E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImaZipCoreProto01DataAccesses", "ImaZipCoreProto01DataAccesses\ImaZipCoreProto01DataAccesses.csproj", "{22B7C3C7-A2FA-43F2-BBEA-441FE190609F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImaZipCoreProto01DataAccesses", "ImaZipCoreProto01DataAccesses\ImaZipCoreProto01DataAccesses.csproj", "{22B7C3C7-A2FA-43F2-BBEA-441FE190609F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HalationGhostDataAccessBase", "HalationGhostDataAccessBase\HalationGhostDataAccessBase.csproj", "{7E740F98-8651-4F7F-91EA-6395078B2B4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HalationGhostDataAccessBase", "HalationGhostDataAccessBase\HalationGhostDataAccessBase.csproj", "{7E740F98-8651-4F7F-91EA-6395078B2B4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HalationGhostDbAccessFactory", "HalationGhostDbAccessFactory\HalationGhostDbAccessFactory.csproj", "{7E267AF7-6FEE-47FF-B86E-C431053FE705}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HalationGhostDbAccessFactory", "HalationGhostDbAccessFactory\HalationGhostDbAccessFactory.csproj", "{7E267AF7-6FEE-47FF-B86E-C431053FE705}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HalationGhostSqliteDataAccess", "HalationGhostSqliteDataAccess\HalationGhostSqliteDataAccess.csproj", "{D3CAB2B1-A9B3-4252-9343-0162DD416931}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HalationGhostSqliteDataAccess", "HalationGhostSqliteDataAccess\HalationGhostSqliteDataAccess.csproj", "{D3CAB2B1-A9B3-4252-9343-0162DD416931}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HalationGhostDbAccessHelper", "HalationGhostDbAccessHelper\HalationGhostDbAccessHelper.csproj", "{150BDDAF-5958-4D6D-999C-CD7AD526E8CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HalationGhostDbAccessHelper", "HalationGhostDbAccessHelper\HalationGhostDbAccessHelper.csproj", "{150BDDAF-5958-4D6D-999C-CD7AD526E8CA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HalationGhostModelBase", "HalationGhostModelBase\HalationGhostModelBase.csproj", "{D71A3176-0B95-49E6-BF3D-74A7D5F25BEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZipBookCreator", "ZipBookCreator\ZipBookCreator.csproj", "{0CAB0A2D-21BD-45D5-865B-9F19B3F34D25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -123,6 +130,14 @@ Global
 		{150BDDAF-5958-4D6D-999C-CD7AD526E8CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{150BDDAF-5958-4D6D-999C-CD7AD526E8CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{150BDDAF-5958-4D6D-999C-CD7AD526E8CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D71A3176-0B95-49E6-BF3D-74A7D5F25BEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D71A3176-0B95-49E6-BF3D-74A7D5F25BEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D71A3176-0B95-49E6-BF3D-74A7D5F25BEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D71A3176-0B95-49E6-BF3D-74A7D5F25BEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CAB0A2D-21BD-45D5-865B-9F19B3F34D25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CAB0A2D-21BD-45D5-865B-9F19B3F34D25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CAB0A2D-21BD-45D5-865B-9F19B3F34D25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CAB0A2D-21BD-45D5-865B-9F19B3F34D25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

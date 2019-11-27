@@ -11,6 +11,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HalationGhostDataAccessBase\HalationGhostDataAccessBase.csproj" />
+    <ProjectReference Include="..\ImaZipCoreProto01Models\ImaZipCoreProto01Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="dbScripts\" />
   </ItemGroup>
 
 </Project>

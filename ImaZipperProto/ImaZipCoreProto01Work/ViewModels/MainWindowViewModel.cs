@@ -22,10 +22,11 @@ namespace HalationGhost.WinApps.ImaZip.ViewModels
 		{
 			var settings = new ImaZipCoreProto01Settings()
 			{
-				SourceFileSelectedFilter = "アーカイブファイル(*.zip,*.rar)|*.zip;*.rar"
+				SourceFileSelectedFilter = "アーカイブファイル(*.zip,*.rar)|*.zip;*.rar",
+				CreatorExeFileName = "ZipBookCreator"
 			};
 
-			AppSettingsService.SaveSettings(settings);
+			AppSettingsService.SaveSettings(settings, @"D:\MyDocuments\GitHubRepositories\WpfMvvmLabo\ImaZipperProto\ImaZipCoreProto01\bin\Debug\netcoreapp3.0\Settings\ImaZipCoreProto01Settings.xml");
 			MessageBox.Show("保存!");
 		}
 
@@ -43,7 +44,7 @@ namespace HalationGhost.WinApps.ImaZip.ViewModels
 			var setting = new DbConnectionSetting() { TargetNumber = 0 };
 			setting.ConnectInformations.Add(connectInfo);
 
-			SerializeUtility.SerializeToFile<DbConnectionSetting>(@"D:\MyDocuments\elfApp_Proto\ImaZipCoreProto01\ImaZipCoreProto01\bin\Debug\netcoreapp3.0\Settings\DbConnectSetting.xml", setting);
+			SerializeUtility.SerializeToFile<DbConnectionSetting>(@"D:\MyDocuments\GitHubRepositories\WpfMvvmLabo\ImaZipperProto\ImaZipCoreProto01\bin\Debug\netcoreapp3.0\Settings\DbConnectSetting.xml", setting);
 			MessageBox.Show("保存!");
 		}
 

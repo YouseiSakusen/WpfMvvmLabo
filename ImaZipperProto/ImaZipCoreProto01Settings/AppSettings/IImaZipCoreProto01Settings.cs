@@ -17,6 +17,8 @@
 		/// </summary>
 		public string SourceFileInitialDirectoryPath { get; set; }
 
+		public string CreatorExeFileName { get; set; }
+
 		#endregion
 	}
 }

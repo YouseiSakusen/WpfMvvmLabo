@@ -15,7 +15,7 @@ namespace HalationGhost.WinApps.ImaZip
 	/// </summary>
 	public partial class App
 	{
-		#region オーバーライドメソッド
+		#region overrideメソッド
 
 		/// <summary>
 		/// ViewModelLocatorを設定します。

@@ -41,20 +41,23 @@
 						<md:PackIcon Kind="ArrowRightBoldBox" Width="28" Height="28" />
 					</md:PopupBox.ToggleContent>
 					<StackPanel>
-						<Button Command="{Binding LoadSettingViews}" CommandParameter="AppendToZip">
+						<Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+								Margin="0, 0, 0, 5"
+								Command="{Binding LoadSettingViews}" CommandParameter="AppendToZip">
 							<md:PackIcon Kind="AnimationPlay"
 										 Width="24" Height="24"
 										 ToolTip="既存のZipに追加"
 										 ToolTipService.Placement="Right" />
 						</Button>
-						<Button Background="{DynamicResource PrimaryHueMidBrush}"
+						<Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+								Margin="0, 0, 0, 5"
 								Command="{Binding LoadSettingViews}" CommandParameter="AppendToZipWithSave">
 							<md:PackIcon Kind="AnimationPlus"
 										 Width="24" Height="24"
 										 ToolTip="既存のZipに追加（新規登録）"
 										 ToolTipService.Placement="Right" />
 						</Button>
-						<Button Background="{DynamicResource SecondaryAccentBrush}"
+						<Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
 								Command="{Binding LoadSettingViews}" CommandParameter="CreateNewZip">
 							<md:PackIcon Kind="BookOpenPageVariant"
 										 Width="24" Height="24"
@@ -68,7 +71,12 @@
 						   HorizontalAlignment="Center"
 						   VerticalAlignment="Center"
 						   FontStyle="Italic"
-						   Style="{StaticResource MaterialDesignDisplay1TextBlock}"/>
+						   Style="{StaticResource MaterialDesignDisplay1TextBlock}">
+					<TextBlock.Effect>
+						<DropShadowEffect ShadowDepth="3" Opacity="0.7"
+										  BlurRadius="4" Color="Aqua"/>
+					</TextBlock.Effect>
+				</TextBlock>
 			</Grid>
 		</md:ColorZone>
 		<Grid Grid.Row="1"

@@ -141,7 +141,7 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 				return Task.CompletedTask;
 			}
 
-			return Task.Run(async () => await new ImageSourceAgent().StartCreateZipAsync(this.zipSettings));
+			return Task.Run(async () => await new ImageSourceAgent().StartCreateZipAsync(this.zipSettings, this.appSettings));
 		}
 
 		#endregion

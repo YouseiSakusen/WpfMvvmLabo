@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Disposables;
-using Prism.Mvvm;
+using Dapper.Contrib.Extensions;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 
@@ -13,9 +14,11 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 	/// <summary>
 	/// 作成するZipファイルの設定情報を表します。
 	/// </summary>
-	public class ZipFileSettings : BindableBase, IDisposable
+	public class ZipFileSettings : BindableModelBase
 	{
 		#region プロパティ
+
+		public int? ID { get; set; } = null;
 
 		/// <summary>
 		/// イメージファイルのソースファイルを取得します。
@@ -31,6 +34,8 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 		/// 設定情報の状態を取得します。
 		/// </summary>
 		public ReactivePropertySlim<bool> IsComplete { get; }
+
+		public DateTime? InsertDate { get; set; } = null;
 
 		#endregion
 
@@ -74,45 +79,6 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 
 		#endregion
 
-		#region IDisposable Support
-
-		private bool disposedValue = false; // 重複する呼び出しを検出するには
-
-		protected virtual void Dispose(bool disposing)
-		{
-			if (!disposedValue)
-			{
-				if (disposing)
-				{
-					this.ImageSources.CollectionChanged -= this.ImageSources_CollectionChanged;
-					this.disposables.Dispose();
-				}
-
-				// TODO: アンマネージ リソース (アンマネージ オブジェクト) を解放し、下のファイナライザーをオーバーライドします。
-				// TODO: 大きなフィールドを null に設定します。
-
-				disposedValue = true;
-			}
-		}
-
-		// TODO: 上の Dispose(bool disposing) にアンマネージ リソースを解放するコードが含まれる場合にのみ、ファイナライザーをオーバーライドします。
-		// ~ZipFileSettings()
-		// {
-		//   // このコードを変更しないでください。クリーンアップ コードを上の Dispose(bool disposing) に記述します。
-		//   Dispose(false);
-		// }
-
-		// このコードは、破棄可能なパターンを正しく実装できるように追加されました。
-		public void Dispose()
-		{
-			// このコードを変更しないでください。クリーンアップ コードを上の Dispose(bool disposing) に記述します。
-			Dispose(true);
-			// TODO: 上のファイナライザーがオーバーライドされる場合は、次の行のコメントを解除してください。
-			// GC.SuppressFinalize(this);
-		}
-
-		#endregion
-
 		#region コンストラクタ
 
 		/// <summary>
@@ -133,10 +99,9 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 			this.settingComplete = new ReactivePropertySlim<bool>(false)
 				.AddTo(this.disposables);
 			this.ImageSources.CollectionChanged += this.ImageSources_CollectionChanged;
-				
+
 			this.ImageFilesExtractedFolder = new ReactivePropertySlim<string>(string.Empty)
 				.AddTo(this.disposables);
-
 			this.ImageFilesExtractedFolder.Subscribe(_ => this.updateSettingState());
 
 			this.IsComplete = this.settingComplete

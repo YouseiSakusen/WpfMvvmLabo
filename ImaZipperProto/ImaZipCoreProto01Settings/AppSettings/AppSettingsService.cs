@@ -28,9 +28,14 @@ namespace HalationGhost.WinApps.ImaZip.AppSettings
 		/// アプリケーション設定を保存します。
 		/// </summary>
 		/// <param name="settings">アプリケーション設定の保存先ファイルのパスを表す文字列。</param>
-		public static void SaveSettings(ImaZipCoreProto01Settings settings)
+		/// <param name="savedPath">設定ファイルの保存先をフルパスで指定します。　※ 省略可能</param>
+		public static void SaveSettings(ImaZipCoreProto01Settings settings, string savedPath = "")
 		{
-			SerializeUtility.SerializeToFile<ImaZipCoreProto01Settings>(AppSettingsService.getSettingFilePath(), settings);
+			var xmlPath = AppSettingsService.getSettingFilePath();
+			if (!string.IsNullOrEmpty(savedPath))
+				xmlPath = savedPath;
+
+			SerializeUtility.SerializeToFile<ImaZipCoreProto01Settings>(xmlPath, settings);
 		}
 
 		/// <summary>

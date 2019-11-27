@@ -1,11 +1,12 @@
 ﻿using Reactive.Bindings;
+using Reactive.Bindings.Extensions;
 
 namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 {
 	/// <summary>
 	/// 画像のソースを表します。
 	/// </summary>
-	public class ImageSource
+	public class ImageSource : BindableModelBase
 	{
 		#region プロパティ
 
@@ -39,8 +40,10 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 		/// </summary>
 		public ImageSource()
 		{
-			this.Path = new ReactivePropertySlim<string>(string.Empty);
-			this.SourceKind = new ReactivePropertySlim<ImageSourceType>(ImageSourceType.None);
+			this.Path = new ReactivePropertySlim<string>(string.Empty)
+				.AddTo(this.Disposable);
+			this.SourceKind = new ReactivePropertySlim<ImageSourceType>(ImageSourceType.None)
+				.AddTo(this.Disposable);
 		}
 
 		#endregion

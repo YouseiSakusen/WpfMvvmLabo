@@ -22,6 +22,12 @@ namespace HalationGhost.WinApps.ImaZip.AppSettings
 		[DataMember]
 		public string SourceFileInitialDirectoryPath { get; set; } = string.Empty;
 
+		/// <summary>
+		/// CreatorExeファイル名を取得・設定します。
+		/// </summary>
+		[DataMember]
+		public string CreatorExeFileName { get; set; } = string.Empty;
+
 		#endregion
 	}
 }
