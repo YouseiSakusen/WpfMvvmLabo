@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Reactive.Disposables;
 using Dapper.Contrib.Extensions;
@@ -16,6 +17,8 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 	/// </summary>
 	public class ZipFileSettings : BindableModelBase
 	{
+		private const string WORK_ROOT_FOLDER_NAME = "WorkTemp";
+
 		#region プロパティ
 
 		public int? ID { get; set; } = null;
@@ -42,6 +45,8 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 		public ReactivePropertySlim<bool> IsComplete { get; }
 
 		public DateTime? InsertDate { get; set; } = null;
+
+		public string WorkRootFolderPath { get; private set; } = string.Empty;
 
 		#endregion
 
@@ -78,9 +83,15 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 		private void updateSettingState()
 		{
 			if (this.ImageSources.Count == 0)
+			{
 				this.settingComplete.Value = false;
+				this.WorkRootFolderPath = string.Empty;
+			}
 			else
+			{
 				this.settingComplete.Value = 0 < this.ImageFilesExtractedFolder.Value.Length;
+				this.WorkRootFolderPath = Path.Combine(this.ImageFilesExtractedFolder.Value, ZipFileSettings.WORK_ROOT_FOLDER_NAME);
+			}
 		}
 
 		#endregion

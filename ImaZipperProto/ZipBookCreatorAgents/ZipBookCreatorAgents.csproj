@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="sharpcompress" Version="0.24.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ImaZipCoreProto01Agents\ImaZipCoreProto01Agents.csproj" />
     <ProjectReference Include="..\ImaZipCoreProto01Models\ImaZipCoreProto01Models.csproj" />
   </ItemGroup>

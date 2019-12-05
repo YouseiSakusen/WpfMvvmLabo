@@ -8,7 +8,28 @@ namespace HalationGhost.WinApps.ImaZip.ZipBookCreator
 {
 	public class CreatorRelayStation
 	{
+		#region プロパティ
+
 		public ReactivePropertySlim<CreateProcess> ProcessState { get; private set; }
+
+		public ResultDetail CreateResult { get; set; } = ResultDetail.ResultNone;
+
+		#endregion
+
+		public void SetCreateResult(ResultDetail detail)
+		{
+			this.CreateResult = detail;
+
+			switch (detail)
+			{
+				case ResultDetail.Success:
+					this.ProcessState.Value = CreateProcess.Completed;
+					break;
+				case ResultDetail.ImageExtractFolderNotFound:
+					this.ProcessState.Value = CreateProcess.Failure;
+					break;
+			}
+		}
 
 		public CreatorRelayStation()
 		{

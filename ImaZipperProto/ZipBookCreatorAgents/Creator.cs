@@ -14,6 +14,10 @@ namespace HalationGhost.WinApps.ImaZip.ZipBookCreator
 			if (settings == null)
 				return Task.CompletedTask;
 
+			var extractor = new ArchiveFileExtractor();
+			Task.Run(async () => await extractor.ExtractArchivesAsync(settings, relayStation))
+				.ConfigureAwait(false);
+
 			return Task.CompletedTask;
 		}
 	}
