@@ -46,7 +46,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HalationGhostDbAccessHelper
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HalationGhostModelBase", "HalationGhostModelBase\HalationGhostModelBase.csproj", "{D71A3176-0B95-49E6-BF3D-74A7D5F25BEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZipBookCreator", "ZipBookCreator\ZipBookCreator.csproj", "{0CAB0A2D-21BD-45D5-865B-9F19B3F34D25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZipBookCreator", "ZipBookCreator\ZipBookCreator.csproj", "{0CAB0A2D-21BD-45D5-865B-9F19B3F34D25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZipBookCreatorAgents", "ZipBookCreatorAgents\ZipBookCreatorAgents.csproj", "{BE965F9D-2EBF-4D0D-A5DF-A0508A45F3E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -138,6 +140,10 @@ Global
 		{0CAB0A2D-21BD-45D5-865B-9F19B3F34D25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CAB0A2D-21BD-45D5-865B-9F19B3F34D25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CAB0A2D-21BD-45D5-865B-9F19B3F34D25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE965F9D-2EBF-4D0D-A5DF-A0508A45F3E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE965F9D-2EBF-4D0D-A5DF-A0508A45F3E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE965F9D-2EBF-4D0D-A5DF-A0508A45F3E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE965F9D-2EBF-4D0D-A5DF-A0508A45F3E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,19 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using System.Linq;
 using System.Diagnostics;
-using HalationGhost.WinApps.ImaZip.AppSettings;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using HalationGhost.WinApps.ImaZip.AppSettings;
 using HalationGhost.WinApps.Utilities;
 
 namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 {
+	/// <summary>
+	/// イメージソースのエージェントを表します。
+	/// </summary>
 	public class ImageSourceAgent
 	{
 		#region zipファイル作成開始
 
+		/// <summary>
+		/// zipファイルの作成を開始します。
+		/// </summary>
+		/// <param name="settings">zipファイル設定を表すZipFileSettings。</param>
+		/// <param name="appSettings">アプリの設定を表すIImaZipCoreProto01Settings。</param>
+		/// <returns>zipファイルの作成開始Task。</returns>
 		public Task StartCreateZipAsync(ZipFileSettings settings, IImaZipCoreProto01Settings appSettings)
 		{
 			var zipId = this.saveZipSettings(settings);
@@ -31,6 +38,11 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 			return Task.CompletedTask;
 		}
 
+		/// <summary>
+		/// zipファイル設定を保存します。
+		/// </summary>
+		/// <param name="settings">保存するzipファイル設定を表すZipFileSettings。</param>
+		/// <returns>zipファイル設定IDを表すlong?。</returns>
 		private long? saveZipSettings(ZipFileSettings settings)
 		{
 			using (var da = new ImageSourceDataAccess())
@@ -61,5 +73,15 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 		}
 
 		#endregion
+
+		public ZipFileSettings GetZipFileSettings(string settingId)
+		{
+			using (var da = new ImageSourceDataAccess())
+			{
+				var setting = da.GetZipFileSettings(settingId);
+
+				return setting;
+			}
+		}
 	}
 }

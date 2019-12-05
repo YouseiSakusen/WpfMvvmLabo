@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RootNamespace>HalationGhost.WinApps.ImaZip.ZipBookCreator</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ImaZipCoreProto01Agents\ImaZipCoreProto01Agents.csproj" />
+    <ProjectReference Include="..\ImaZipCoreProto01Models\ImaZipCoreProto01Models.csproj" />
+  </ItemGroup>
+
+</Project>

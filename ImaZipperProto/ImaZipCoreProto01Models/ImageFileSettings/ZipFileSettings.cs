@@ -30,6 +30,12 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 		/// </summary>
 		public ReactivePropertySlim<string> ImageFilesExtractedFolder { get; set; }
 
+		public string EXTRACT_FOLDER
+		{
+			get { return this.ImageFilesExtractedFolder.Value; }
+			set { this.ImageFilesExtractedFolder.Value = value; }
+		}
+
 		/// <summary>
 		/// 設定情報の状態を取得します。
 		/// </summary>

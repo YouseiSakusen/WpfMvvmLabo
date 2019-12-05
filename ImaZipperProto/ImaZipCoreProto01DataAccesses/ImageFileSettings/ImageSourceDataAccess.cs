@@ -1,15 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Dapper;
 using HalationGhost.WinApps.DatabaseAccesses;
 
 namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 {
+	/// <summary>
+	/// イメージソース用のデータアクセスを表します。
+	/// </summary>
 	public class ImageSourceDataAccess : HalationGhostDbAccessBase
 	{
 		#region zipファイル設定保存
 
+		/// <summary>
+		/// 作成するzipファイルの設定を保存します。
+		/// </summary>
+		/// <param name="zipFile">保存するzipファイル設定を表すZipFileSettings。</param>
+		/// <returns>zipファイルの設定IDを表すlong?</returns>
 		public long? SaveZipSettings(ZipFileSettings zipFile)
 		{
 			zipFile.InsertDate = DateTime.Now;
@@ -23,6 +32,10 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 			return this.getAutoNumber("ZIP_FILE_SETTINGS");
 		}
 
+		/// <summary>
+		/// zipファイル設定を保存するSQLを取得します。
+		/// </summary>
+		/// <returns>zipファイル設定を保存するSQLを表す文字列。</returns>
 		private string getSaveZipSettingsSql()
 		{
 			return @"
@@ -63,6 +76,13 @@ WHERE
 
 		#endregion
 
+		#region イメージソースリスト保存
+
+		/// <summary>
+		/// イメージソースのリストを保存します。
+		/// </summary>
+		/// <param name="imageSources">保存するイメージソースのリストを表すList<ImageSource>。</param>
+		/// <param name="zipSettingId">zipファイル設定のIDを表すlong。</param>
 		public void SaveImageSources(List<ImageSource> imageSources, long zipSettingId)
 		{
 			var sql = @"
@@ -70,23 +90,75 @@ INSERT INTO IMAGE_SOURCES (
 	  ZIP_SETTINGS_ID
 	, IMAGE_SOURCE_PATH
 	, SOURCE_KIND
+	, LIST_ORDER
 ) VALUES (
-	:ZIP_SETTINGS_ID
-  , :IMAGE_SOURCE_PATH
-  , :SOURCE_KIND
+	  :ZIP_SETTINGS_ID
+	, :IMAGE_SOURCE_PATH
+	, :SOURCE_KIND
+	, :LIST_ORDER
 )
 ";
+			var order = 1;
+
 			imageSources.ForEach(s =>
 			{
 				this.Connection.Execute(sql, new
 				{
 					ZIP_SETTINGS_ID = zipSettingId,
 					IMAGE_SOURCE_PATH = s.Path.Value,
-					SOURCE_KIND = s.SourceKind.Value
+					SOURCE_KIND = s.SourceKind.Value,
+					LIST_ORDER = order
 				});
+
+				order++;
 			});
 		}
 
+		#endregion
+
+		public ZipFileSettings GetZipFileSettings(string settingId)
+		{
+			var sql = new StringBuilder(500);
+			sql.AppendLine(" SELECT ");
+			sql.AppendLine(" 	  ZFS.ID ");
+			sql.AppendLine(" 	, ZFS.EXTRACT_FOLDER ");
+			sql.AppendLine(" 	, IMG.ZIP_SETTINGS_ID ");
+			sql.AppendLine(" 	, IMG.IMAGE_SOURCE_PATH ");
+			sql.AppendLine(" 	, IMG.SOURCE_KIND ");
+			sql.AppendLine(" FROM ");
+			sql.AppendLine(" 	ZIP_FILE_SETTINGS ZFS ");
+			sql.AppendLine(" 	INNER JOIN IMAGE_SOURCES IMG ON ");
+			sql.AppendLine(" 			ZFS.ID = :ID ");
+			sql.AppendLine(" 		AND ZFS.ID = IMG.ZIP_SETTINGS_ID ");
+			sql.AppendLine(" ORDER BY ");
+			sql.AppendLine(" 	IMG.LIST_ORDER ");
+
+			var dic = new Dictionary<int, ZipFileSettings>();
+
+			this.Connection.Query<ZipFileSettings, ImageSource, ZipFileSettings>(
+				sql.ToString(),
+				(z, i) =>
+				{
+					ZipFileSettings entry = null;
+
+					if (!dic.TryGetValue(z.ID.Value, out entry))
+					{
+						dic.Add(z.ID.Value, z);
+						entry = z;
+					}
+
+					entry.ImageSources.Add(i);
+					return entry;
+				},
+				new { ID = settingId },
+				splitOn: "ZIP_SETTINGS_ID");
+
+			return dic.Values.ToList().FirstOrDefault();
+		}
+
+		/// <summary>
+		/// コンストラクタ。
+		/// </summary>
 		public ImageSourceDataAccess() : base()
 		{
 

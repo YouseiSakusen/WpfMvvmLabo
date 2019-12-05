@@ -15,10 +15,27 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 		/// </summary>
 		public ReactivePropertySlim<string> Path { get; set; }
 
+		public string IMAGE_SOURCE_PATH
+		{
+			get { return this.Path.Value; }
+			set { this.Path.Value = value; }
+		}
+
 		/// <summary>
 		/// ImageSourceの種類を取得します。
 		/// </summary>
-		public ReactivePropertySlim<ImageSourceType> SourceKind { get; }
+		public ReactivePropertySlim<ImageSourceType> SourceKind { get; set; }
+
+		public ImageSourceType SOURCE_KIND
+		{
+			get { return this.SourceKind.Value; }
+			set { this.SourceKind.Value = value; }
+		}
+
+		/// <summary>
+		/// リスト内の並び順を取得・設定します。
+		/// </summary>
+		public int ListOrder { get; set; } = 0;
 
 		#endregion
 
