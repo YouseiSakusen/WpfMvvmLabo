@@ -1,5 +1,8 @@
-﻿using Reactive.Bindings;
+﻿using System;
+using System.IO;
+using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
+using ZipBookCreator;
 
 namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 {
@@ -37,7 +40,53 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 		/// </summary>
 		public int ListOrder { get; set; } = 0;
 
+		/// <summary>
+		/// イメージファイルが存在しないかを取得します。
+		/// </summary>
+		public bool IsNotExists
+		{
+			get
+			{
+				if (string.IsNullOrEmpty(this.Path.Value))
+					return true;
+
+				switch (this.SourceKind.Value)
+				{
+					case ImageSourceType.File:
+						if (!File.Exists(this.Path.Value))
+						{
+							this.State = ImageSourceState.SourceFileNotFound;
+							return true;
+						}
+						break;
+					case ImageSourceType.Folder:
+						if (!Directory.Exists(this.Path.Value))
+						{
+							this.State = ImageSourceState.SourceFileNotFound;
+							return true;
+						}
+						break;
+				}
+
+				return false;
+			}
+		}
+
+		public ImageSourceState State { get; set; } = ImageSourceState.Normal;
+
+		private string fileNameWithoutExt;
+
+		public string FileNameWithoutExtension
+		{
+			get { return fileNameWithoutExt; }
+		}
+
 		#endregion
+
+		private void onSetPath(string value)
+		{
+			this.fileNameWithoutExt = System.IO.Path.GetFileNameWithoutExtension(value);
+		}
 
 		#region コンストラクタ
 
@@ -59,6 +108,8 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 		{
 			this.Path = new ReactivePropertySlim<string>(string.Empty)
 				.AddTo(this.Disposable);
+			this.Path.Subscribe(p => this.onSetPath(p));
+
 			this.SourceKind = new ReactivePropertySlim<ImageSourceType>(ImageSourceType.None)
 				.AddTo(this.Disposable);
 		}

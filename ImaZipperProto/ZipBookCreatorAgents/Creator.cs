@@ -8,17 +8,23 @@ namespace HalationGhost.WinApps.ImaZip.ZipBookCreator
 {
 	public class Creator
 	{
-		public Task CreateZipBookAsync(string zipSettingId, CreatorRelayStation relayStation)
+		public async Task CreateZipBookAsync(string zipSettingId, CreatorRelayStation relayStation)
 		{
 			var settings = new ImageSourceAgent().GetZipFileSettings(zipSettingId);
 			if (settings == null)
-				return Task.CompletedTask;
+				return;
 
 			var extractor = new ArchiveFileExtractor();
-			Task.Run(async () => await extractor.ExtractArchivesAsync(settings, relayStation))
-				.ConfigureAwait(false);
+			if (!await extractor.StartExtractAsync(settings, relayStation))
+				return;
 
-			return Task.CompletedTask;
+			foreach (var imgSrc in settings.ImageSources)
+			{
+				if (imgSrc.IsNotExists)
+					continue;
+
+				await extractor.ExtractImageSourceAsync(imgSrc);
+			}
 		}
 	}
 }

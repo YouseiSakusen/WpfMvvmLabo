@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace HalationGhost.WinApps.ImaZip.ZipBookCreator
 {
@@ -17,13 +18,23 @@ namespace HalationGhost.WinApps.ImaZip.ZipBookCreator
 
 		public AsyncReactiveCommand ContentRendered { get; }
 
-		private Task onContentRendered()
+		private async Task onContentRendered()
 		{
 			var args = Environment.GetCommandLineArgs();
 			if (args.Length <= 1)
-				return Task.CompletedTask;
+				return;
 
-			return new Creator().CreateZipBookAsync(args[1], this.relayStation);
+			try
+			{
+				Mouse.OverrideCursor = Cursors.Wait;
+
+				await new Creator().CreateZipBookAsync(args[1], this.relayStation);
+				MessageBox.Show("完了");
+			}
+			finally
+			{
+				Mouse.OverrideCursor = null;
+			}
 		}
 
 		#endregion

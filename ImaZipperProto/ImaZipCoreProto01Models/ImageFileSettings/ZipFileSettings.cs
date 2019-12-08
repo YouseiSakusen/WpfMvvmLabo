@@ -65,6 +65,20 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 				.ForEach(p => this.ImageSources.Add(new ImageSource(p, sourceType)));
 		}
 
+		public long GetExtractPathFreeSpace()
+		{
+			var driveName = Path.GetPathRoot(this.ImageFilesExtractedFolder.Value)
+				.ToList()
+				.FirstOrDefault()
+				.ToString();
+			var drive = new DriveInfo(driveName);
+
+			if (drive.IsReady)
+				return drive.AvailableFreeSpace;
+			else
+				return 0;
+		}
+
 		#endregion
 
 		#region イベントハンドラ

@@ -56,4 +56,23 @@ namespace ZipBookCreator
 		/// </summary>
 		ImageExtractFolderNotFound
 	}
+
+	/// <summary>
+	/// イメージソースの状態を表す列挙型。
+	/// </summary>
+	public enum ImageSourceState
+	{
+		/// <summary>
+		/// 通常を表します。
+		/// </summary>
+		Normal,
+		/// <summary>
+		/// ソースファイルが存在しないことを表します。
+		/// </summary>
+		SourceFileNotFound,
+		/// <summary>
+		/// 解凍先フォルダが既に存在することを表します。
+		/// </summary>
+		ExtractFolderExisted
+	}
 }
