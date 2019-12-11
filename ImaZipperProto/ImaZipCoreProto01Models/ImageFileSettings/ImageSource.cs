@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
@@ -80,6 +81,10 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 		{
 			get { return fileNameWithoutExt; }
 		}
+
+		public string ExtractedRootDirectory { get; set; } = string.Empty;
+
+		public List<SourceItem> ExtractedItems { get; } = new List<SourceItem>();
 
 		#endregion
 

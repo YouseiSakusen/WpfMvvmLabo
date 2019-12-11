@@ -79,7 +79,7 @@ namespace HalationGhost.WinApps.ImaZip.ZipBookCreator
 			{
 				foreach (var entry in archive.Entries)
 				{
-					if (SourceFile.IsTargetFile(entry))
+					if (SourceItem.IsTargetFile(entry))
 					{
 						totalSize += entry.Size;
 					}
@@ -91,12 +91,12 @@ namespace HalationGhost.WinApps.ImaZip.ZipBookCreator
 
 		internal async Task ExtractImageSourceAsync(ImageSource source)
 		{
-			var extractDir = Path.Combine(this.settings.WorkRootFolderPath, source.FileNameWithoutExtension);
-			Directory.CreateDirectory(extractDir);
+			source.ExtractedRootDirectory = Path.Combine(this.settings.WorkRootFolderPath, source.FileNameWithoutExtension);
+			Directory.CreateDirectory(source.ExtractedRootDirectory);
 
 			using (var archive = await this.openArchiveAsync(source.Path.Value))
 			{
-				await this.extractImageFilesAsync(archive, extractDir);
+				await this.extractImageFilesAsync(archive, source.ExtractedRootDirectory);
 			}
 		}
 
@@ -106,7 +106,7 @@ namespace HalationGhost.WinApps.ImaZip.ZipBookCreator
 			{
 				foreach (var entry in archive.Entries)
 				{
-					if (SourceFile.IsTargetFile(entry))
+					if (SourceItem.IsTargetFile(entry))
 					{
 						var dirPath = this.createParentDirectory(Path.GetDirectoryName(entry.Key), extractDir);
 

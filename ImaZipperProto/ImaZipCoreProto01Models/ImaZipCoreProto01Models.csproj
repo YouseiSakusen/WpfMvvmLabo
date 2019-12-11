@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>HalationGhost.WinApps.ImaZip</RootNamespace>
   </PropertyGroup>
 
@@ -11,6 +11,7 @@
     <PackageReference Include="ReactiveProperty" Version="6.1.4" />
     <PackageReference Include="SharpCompress" Version="0.24.0" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.112" />
+    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>

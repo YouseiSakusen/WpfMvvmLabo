@@ -10,10 +10,12 @@ namespace HalationGhost.WinApps.ImaZip.ZipBookCreator
 	{
 		public async Task CreateZipBookAsync(string zipSettingId, CreatorRelayStation relayStation)
 		{
+			// zip作成対象の情報を取得
 			var settings = new ImageSourceAgent().GetZipFileSettings(zipSettingId);
 			if (settings == null)
 				return;
 
+			// アーカイブファイルを展開
 			var extractor = new ArchiveFileExtractor();
 			if (!await extractor.StartExtractAsync(settings, relayStation))
 				return;
@@ -25,6 +27,9 @@ namespace HalationGhost.WinApps.ImaZip.ZipBookCreator
 
 				await extractor.ExtractImageSourceAsync(imgSrc);
 			}
+
+			// ソースファイルをチェック
+			new SourceFileCollector().CheckSourceFiles(settings);
 		}
 	}
 }

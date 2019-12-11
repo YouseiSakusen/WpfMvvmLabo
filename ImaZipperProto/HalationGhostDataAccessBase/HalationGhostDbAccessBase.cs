@@ -66,6 +66,8 @@ namespace HalationGhost.WinApps.DatabaseAccesses
 			if (HalationGhostDbAccessBase.connectionSetting == null)
 			{
 				HalationGhostDbAccessBase.connectionSetting = new DbConnectionSettingLoader().Load();
+				if (HalationGhostDbAccessBase.connectionSetting == null)
+					throw new Exception("DBの接続設定ファイルがLoadできません。");
 			}
 
 			var num = this.getConnectionNumber();

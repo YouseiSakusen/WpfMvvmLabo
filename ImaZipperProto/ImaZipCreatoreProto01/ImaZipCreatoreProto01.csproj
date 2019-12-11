@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <AssemblyName>ImaZipCreatoreProto01</AssemblyName>
     <RootNamespace>HalationGhost.WinApps.ImaZip.Creator</RootNamespace>
@@ -12,8 +12,8 @@
   <ItemGroup>
     <PackageReference Include="LivetCask.Behaviors" Version="3.2.1" />
     <PackageReference Include="MahApps.Metro" Version="1.6.5" />
-    <PackageReference Include="MaterialDesignColors" Version="1.2.0" />
-    <PackageReference Include="MaterialDesignThemes" Version="2.6.0" />
+    <PackageReference Include="MaterialDesignColors" Version="1.2.1" />
+    <PackageReference Include="MaterialDesignThemes" Version="3.0.0" />
     <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.1.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.3" />
     <PackageReference Include="Prism.Unity" Version="7.2.0.1422" />
