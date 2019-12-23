@@ -249,6 +249,9 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 			this.FolderNameTemplate = this.zipSettings.FolderNameTemplate
 				.ToReactiveProperty()
 				.AddTo(this.disposable);
+			this.FileNameTemplate = this.zipSettings.FileNameTemplate
+				.ToReactiveProperty()
+				.AddTo(this.disposable);
 		}
 
 		#endregion

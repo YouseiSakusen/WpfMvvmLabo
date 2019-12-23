@@ -28,6 +28,7 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 					EXTRACT_FOLDER = zipFile.ImageFilesExtractedFolder.Value,
 					FOLDER_NAME_SEQ = zipFile.FolderNameSequenceDigit.Value,
 					FOLDER_NAME_TEMPLATE = zipFile.FolderNameTemplate.Value,
+					FILE_NAME_TEMPLATE = zipFile.FileNameTemplate.Value,
 					INSERT_DATE = zipFile.InsertDate
 				});
 
@@ -45,11 +46,13 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 			sql.AppendLine(" 	  EXTRACT_FOLDER ");
 			sql.AppendLine(" 	, FOLDER_NAME_SEQ ");
 			sql.AppendLine(" 	, FOLDER_NAME_TEMPLATE ");
+			sql.AppendLine(" 	, FILE_NAME_TEMPLATE ");
 			sql.AppendLine(" 	, INSERT_DATE ");
 			sql.AppendLine(" ) VALUES (  ");
 			sql.AppendLine(" 	  :EXTRACT_FOLDER ");
 			sql.AppendLine(" 	, :FOLDER_NAME_SEQ ");
 			sql.AppendLine(" 	, :FOLDER_NAME_TEMPLATE ");
+			sql.AppendLine(" 	, :FILE_NAME_TEMPLATE ");
 			sql.AppendLine(" 	, :INSERT_DATE ");
 			sql.AppendLine(" ) ");
 
@@ -131,6 +134,7 @@ INSERT INTO IMAGE_SOURCES (
 			sql.AppendLine(" 	, ZFS.EXTRACT_FOLDER ");
 			sql.AppendLine(" 	, ZFS.FOLDER_NAME_SEQ ");
 			sql.AppendLine(" 	, ZFS.FOLDER_NAME_TEMPLATE ");
+			sql.AppendLine(" 	, ZFS.FILE_NAME_TEMPLATE ");
 			sql.AppendLine(" 	, IMG.ZIP_SETTINGS_ID ");
 			sql.AppendLine(" 	, IMG.IMAGE_SOURCE_PATH ");
 			sql.AppendLine(" 	, IMG.SOURCE_KIND ");
