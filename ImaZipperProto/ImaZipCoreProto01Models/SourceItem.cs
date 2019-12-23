@@ -9,6 +9,8 @@ namespace HalationGhost.WinApps.ImaZip
 {
 	public class SourceItem
 	{
+		#region staticメソッド
+
 		private static List<string> TargetExtensions = new List<string>() { ".jpg", ".jpeg", ".png", ".bmp" };
 
 		public static bool IsTargetFile(IArchiveEntry entry)
@@ -26,18 +28,41 @@ namespace HalationGhost.WinApps.ImaZip
 			return SourceItem.TargetExtensions.Any(e => e == extension);
 		}
 
+		#endregion
+
 		#region プロパティ
 
-		public ImageSourceType ItemKind { get; set; } = ImageSourceType.None;
+		public ImageSourceType ItemKind { get; } = ImageSourceType.None;
 
-		public string ItemPath { get; set; } = string.Empty;
+		public string ItemPath { get; } = string.Empty;
+
+		public string FileName { get; } = string.Empty;
+
+		public List<SourceItem> Children { get; } = new List<SourceItem>();
+
+		public ImageSpecification ImageSpecification { get; set; } = null;
+
+		public DistributionRule DistributionRule { get; private set; } = null;
 
 		#endregion
+
+		public void CreateDistributionRule()
+			=> this.DistributionRule = new DistributionRule(this.Children);
+
+		#region コンストラクタ
+
+		public SourceItem(ImageSpecification imageSpec) : this(ImageSourceType.File, imageSpec.ImageFilePath)
+		{
+			this.ImageSpecification = imageSpec;
+		}
 
 		public SourceItem(ImageSourceType kind, string path) : base()
 		{
 			this.ItemKind = kind;
 			this.ItemPath = path;
+			this.FileName = Path.GetFileName(path);
 		}
+
+		#endregion
 	}
 }

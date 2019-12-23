@@ -71,7 +71,7 @@
 						   HorizontalAlignment="Center"
 						   VerticalAlignment="Center"
 						   FontStyle="Italic"
-						   Style="{StaticResource MaterialDesignDisplay1TextBlock}">
+						   Style="{StaticResource MaterialDesignHeadline4TextBlock}">
 					<TextBlock.Effect>
 						<DropShadowEffect ShadowDepth="3" Opacity="0.7"
 										  BlurRadius="4" Color="Aqua"/>
@@ -81,8 +81,9 @@
 		</md:ColorZone>
 		<Grid Grid.Row="1"
 			  Margin="15, 10, 15, 0">
-			<ContentControl IsTabStop="False"
-							prism:RegionManager.RegionName="FileListArea" />
+			<metro:TransitioningContentControl IsTabStop="False"
+											   Transition="Right"
+											   prism:RegionManager.RegionName="FileListArea" />
 		</Grid>
 	</Grid>
 </metro:MetroWindow>

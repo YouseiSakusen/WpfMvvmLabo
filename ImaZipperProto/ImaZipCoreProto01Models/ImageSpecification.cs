@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Drawing.Imaging;
+using ZipBookCreator;
 
 namespace HalationGhost.WinApps.ImaZip
 {
@@ -11,26 +12,43 @@ namespace HalationGhost.WinApps.ImaZip
 		#region プロパティ
 
 		/// <summary>
-		/// Image の高さ (ピクセル単位) を取得・設定します。
+		/// イメージファイルのパスを取得します。
 		/// </summary>
-		public int Height { get; set; } = 0;
+		public string ImageFilePath { get; set; } = string.Empty;
 
 		/// <summary>
-		/// Image のファイル形式を取得・設定します。
+		/// Image の高さ (ピクセル単位) を取得します。
 		/// </summary>
-		public ImageFormat RawFormat { get; set; } = ImageFormat.Jpeg;
+		public int Height { get; } = 0;
 
 		/// <summary>
-		/// イメージの幅と高さ (ピクセル単位) を取得・設定します。
+		/// Image のファイル形式を取得します。
 		/// </summary>
-		public Size Size { get; set; }
+		public ImageFormat RawFormat { get; } = ImageFormat.Jpeg;
 
 		/// <summary>
-		/// Image の幅 (ピクセル単位) を取得・設定します。
+		/// イメージの幅と高さ (ピクセル単位) を取得します。
 		/// </summary>
-		public int Width { get; set; } = 0;
+		public Size Size { get; } = new Size(0, 0);
+
+		/// <summary>
+		/// Image の幅 (ピクセル単位) を取得します。
+		/// </summary>
+		public int Width { get; } = 0;
+
+		/// <summary>
+		/// イメージの向きを取得します。
+		/// </summary>
+		public ImageDirection Direction { get; private set; } = ImageDirection.NoDirection;
 
 		#endregion
+
+		#region コンストラクタ
+
+		public ImageSpecification(Image image, string filePath) : this(image)
+		{
+			this.ImageFilePath = filePath;
+		}
 
 		public ImageSpecification(Image image) : base()
 		{
@@ -38,6 +56,25 @@ namespace HalationGhost.WinApps.ImaZip
 			this.RawFormat = image.RawFormat;
 			this.Size = image.Size;
 			this.Width = image.Width;
+
+			this.setDirection();
 		}
+
+		private void setDirection()
+		{
+			if (this.Height == this.Width)
+			{
+				this.Direction = ImageDirection.Square;
+			}
+			else
+			{
+				if (this.Height < this.Width)
+					this.Direction = ImageDirection.Landscape;
+				else
+					this.Direction = ImageDirection.Portrait;
+			}
+		}
+
+		#endregion
 	}
 }

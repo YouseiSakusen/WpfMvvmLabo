@@ -26,6 +26,8 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 				new
 				{
 					EXTRACT_FOLDER = zipFile.ImageFilesExtractedFolder.Value,
+					FOLDER_NAME_SEQ = zipFile.FolderNameSequenceDigit.Value,
+					FOLDER_NAME_TEMPLATE = zipFile.FolderNameTemplate.Value,
 					INSERT_DATE = zipFile.InsertDate
 				});
 
@@ -38,15 +40,20 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 		/// <returns>zipファイル設定を保存するSQLを表す文字列。</returns>
 		private string getSaveZipSettingsSql()
 		{
-			return @"
-INSERT INTO ZIP_FILE_SETTINGS (
-	  EXTRACT_FOLDER
-	, INSERT_DATE
-) VALUES (
-	  :EXTRACT_FOLDER
-	, :INSERT_DATE
-)
-";
+			var sql = new StringBuilder(500);
+			sql.AppendLine(" INSERT INTO ZIP_FILE_SETTINGS (  ");
+			sql.AppendLine(" 	  EXTRACT_FOLDER ");
+			sql.AppendLine(" 	, FOLDER_NAME_SEQ ");
+			sql.AppendLine(" 	, FOLDER_NAME_TEMPLATE ");
+			sql.AppendLine(" 	, INSERT_DATE ");
+			sql.AppendLine(" ) VALUES (  ");
+			sql.AppendLine(" 	  :EXTRACT_FOLDER ");
+			sql.AppendLine(" 	, :FOLDER_NAME_SEQ ");
+			sql.AppendLine(" 	, :FOLDER_NAME_TEMPLATE ");
+			sql.AppendLine(" 	, :INSERT_DATE ");
+			sql.AppendLine(" ) ");
+
+			return sql.ToString();
 		}
 
 		private long? getAutoNumber(string tableName)
@@ -122,6 +129,8 @@ INSERT INTO IMAGE_SOURCES (
 			sql.AppendLine(" SELECT ");
 			sql.AppendLine(" 	  ZFS.ID ");
 			sql.AppendLine(" 	, ZFS.EXTRACT_FOLDER ");
+			sql.AppendLine(" 	, ZFS.FOLDER_NAME_SEQ ");
+			sql.AppendLine(" 	, ZFS.FOLDER_NAME_TEMPLATE ");
 			sql.AppendLine(" 	, IMG.ZIP_SETTINGS_ID ");
 			sql.AppendLine(" 	, IMG.IMAGE_SOURCE_PATH ");
 			sql.AppendLine(" 	, IMG.SOURCE_KIND ");
@@ -151,7 +160,7 @@ INSERT INTO IMAGE_SOURCES (
 					return entry;
 				},
 				new { ID = settingId },
-				splitOn: "ZIP_SETTINGS_ID");
+				splitOn: "IMAGE_SOURCE_PATH");
 
 			return dic.Values.ToList().FirstOrDefault();
 		}

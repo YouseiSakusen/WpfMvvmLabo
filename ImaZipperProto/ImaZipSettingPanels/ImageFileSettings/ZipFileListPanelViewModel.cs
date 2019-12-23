@@ -25,6 +25,14 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 
 		public ReactivePropertySlim<string> ImageFilesExtractedFolderPath { get; set; }
 
+		public ReadOnlyReactiveCollection<int> FolderNameSequenceDigits { get; }
+
+		public ReactiveProperty<int?> FolderNameSequenceDigit { get; set; }
+
+		public ReactiveProperty<string> FolderNameTemplate { get; set; }
+
+		public ReactiveProperty<string> FileNameTemplate { get; set; }
+
 		#endregion
 
 		#region コマンド
@@ -229,6 +237,17 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 			this.CreateZip = this.zipSettings.IsComplete
 				.ToAsyncReactiveCommand()
 				.WithSubscribe(() => this.onCreateZip())
+				.AddTo(this.disposable);
+
+			var folderSequences = new ObservableCollection<int>(Enumerable.Range(1, 4));
+			this.FolderNameSequenceDigits = folderSequences
+				.ToReadOnlyReactiveCollection(i => i)
+				.AddTo(this.disposable);
+			this.FolderNameSequenceDigit = this.zipSettings.FolderNameSequenceDigit
+				.ToReactiveProperty()
+				.AddTo(this.disposable);
+			this.FolderNameTemplate = this.zipSettings.FolderNameTemplate
+				.ToReactiveProperty()
 				.AddTo(this.disposable);
 		}
 

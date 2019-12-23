@@ -3,6 +3,7 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
 			 xmlns:bh="http://schemas.microsoft.com/xaml/behaviors"
 			 xmlns:prism="http://prismlibrary.com/"
 			 xmlns:rp="clr-namespace:Reactive.Bindings.Interactivity;assembly=ReactiveProperty.NETCore"
@@ -43,12 +44,14 @@
 				<StackPanel DockPanel.Dock="Top"
 							Orientation="Vertical">
 					<Button ToolTip="アーカイブファイルを追加"
+							ToolTipService.Placement="Right"
 							Command="{Binding AddImageSource}"
 							CommandParameter="Archives">
 						<md:PackIcon Kind="Archive" Width="24" Height="24" />
 					</Button>
 					<Button Margin="0, 5, 0, 0"
 							ToolTip="フォルダを追加"
+							ToolTipService.Placement="Right"
 							Command="{Binding AddImageSource}"
 							CommandParameter="Folders">
 						<md:PackIcon Kind="Folder" Width="24" Height="24" />
@@ -103,7 +106,9 @@
 				  Margin="15, 10, 5, 0">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="50"/>
-					<RowDefinition Height="50"/>
+					<RowDefinition Height="60"/>
+					<RowDefinition Height="78"/>
+					<RowDefinition Height="60"/>
 					<RowDefinition Height="*"/>
 				</Grid.RowDefinitions>
 				<Grid Grid.Row="0">
@@ -113,6 +118,7 @@
 					</Grid.ColumnDefinitions>
 					<TextBox Grid.Column="0"
 							 Margin="0, 0, 10, 0"
+							 VerticalContentAlignment="Center"
 							 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
 							 md:HintAssist.Hint="アーカイブファイル解凍先"
 							 md:HintAssist.FloatingScale="0.9"
@@ -122,6 +128,45 @@
 							Command="{Binding SelectExtractFolder}" Cursor="Hand">
 						<md:PackIcon Kind="Folder" Width="24" Height="24" />
 					</Button>
+				</Grid>
+				<Grid Grid.Row="1">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="150"/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<ComboBox Grid.Column="0" Width="150"
+							  md:HintAssist.Hint="フォルダ名連番部分の桁数"
+							  md:HintAssist.FloatingScale="0.9"
+							  Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+							  ItemsSource="{Binding FolderNameSequenceDigits, Mode=OneWay}"
+							  SelectedItem="{Binding FolderNameSequenceDigit.Value, Mode=TwoWay}">
+						<ComboBox.ItemsPanel>
+							<ItemsPanelTemplate>
+								<VirtualizingStackPanel />
+							</ItemsPanelTemplate>
+						</ComboBox.ItemsPanel>
+					</ComboBox>
+					<TextBox Grid.Column="1" Margin="30, 10, 0, 10"
+							 md:HintAssist.Hint="フォルダ名のテンプレート"
+							 md:HintAssist.FloatingScale="0.9"
+							 md:TextFieldAssist.HasClearButton="True"
+							 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+							 Text="{Binding FolderNameTemplate.Value, Mode=TwoWay}"/>
+				</Grid>
+				<Grid Grid.Row="2">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="60"/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+					<TextBox Grid.Row="0" Margin="0, 10, 0, 10"
+							 md:HintAssist.Hint="ファイル名のテンプレート"
+							 md:HintAssist.FloatingScale="0.9"
+							 md:TextFieldAssist.HasClearButton="True"
+							 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+							 Text="{Binding FileNameTemplate.Value, Mode=TwoWay}"/>
+					<TextBlock Grid.Row="1"
+							   Style="{StaticResource MaterialDesignCaptionTextBlock}"
+							   Text="フォルダ名連番:【?】　ファイル名連番：【*】" />
 				</Grid>
 			</Grid>
 			<Button Grid.Column="2"

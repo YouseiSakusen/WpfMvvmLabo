@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using ZipBookCreator;
@@ -18,6 +19,11 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 		/// ImageSourceのパスを取得・設定します。
 		/// </summary>
 		public ReactivePropertySlim<string> Path { get; set; }
+
+		private void onSetPath(string value)
+		{
+			this.fileNameWithoutExt = System.IO.Path.GetFileNameWithoutExtension(value);
+		}
 
 		public string IMAGE_SOURCE_PATH
 		{
@@ -86,11 +92,28 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 
 		public List<SourceItem> ExtractedItems { get; } = new List<SourceItem>();
 
+		public List<SourceItem> Entries { get; } = new List<SourceItem>();
+
 		#endregion
 
-		private void onSetPath(string value)
+		public SourceItem GetExtractedFolder(string entryKey)
 		{
-			this.fileNameWithoutExt = System.IO.Path.GetFileNameWithoutExtension(value);
+			var folders = System.IO.Path.GetDirectoryName(entryKey).Split(new char[] { System.IO.Path.DirectorySeparatorChar }).ToList();
+			var parentDirName = folders.LastOrDefault();
+			var dirPath = System.IO.Path.Combine(this.ExtractedRootDirectory, parentDirName);
+
+			if (!Directory.Exists(dirPath))
+				Directory.CreateDirectory(dirPath);
+
+			var entry = this.Entries.FirstOrDefault(e => e.ItemKind == ImageSourceType.Folder && e.ItemPath == dirPath);
+
+			if (entry == null)
+			{
+				entry = new SourceItem(ImageSourceType.Folder, dirPath);
+				this.Entries.Add(entry);
+			}
+
+			return entry;
 		}
 
 		#region コンストラクタ

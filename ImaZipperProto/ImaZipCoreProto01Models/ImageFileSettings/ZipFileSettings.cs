@@ -48,6 +48,30 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 
 		public string WorkRootFolderPath { get; private set; } = string.Empty;
 
+		public ReactivePropertySlim<int?> FolderNameSequenceDigit { get; set; }
+
+		public int? FOLDER_NAME_SEQ
+		{
+			get { return this.FolderNameSequenceDigit.Value; }
+			set { this.FolderNameSequenceDigit.Value = value; }
+		}
+
+		public ReactivePropertySlim<string> FolderNameTemplate { get; set; }
+
+		public string FOLDER_NAME_TEMPLATE
+		{
+			get { return this.FolderNameTemplate.Value; }
+			set { this.FolderNameTemplate.Value = value; }
+		}
+
+		public ReactivePropertySlim<string> FileNameTemplate { get; set; }
+
+		public string FILE_NAME_TEMPLATE
+		{
+			get { return this.FileNameTemplate.Value; }
+			set { this.FileNameTemplate.Value = value; }
+		}
+
 		#endregion
 
 		#region メソッド
@@ -136,6 +160,12 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 			this.ImageFilesExtractedFolder.Subscribe(_ => this.updateSettingState());
 
 			this.IsComplete = this.settingComplete
+				.AddTo(this.disposables);
+			this.FolderNameSequenceDigit = new ReactivePropertySlim<int?>(2)
+				.AddTo(this.disposables);
+			this.FolderNameTemplate = new ReactivePropertySlim<string>("?巻")
+				.AddTo(this.disposables);
+			this.FileNameTemplate = new ReactivePropertySlim<string>("?_*")
 				.AddTo(this.disposables);
 		}
 

@@ -21,6 +21,9 @@
 		</bh:EventTrigger>
 	</bh:Interaction.Triggers>
 	<Grid>
-			
+		<TextBlock Margin="10, 10, 10, 10" TextWrapping="Wrap"
+				   ScrollViewer.VerticalScrollBarVisibility="Auto"
+				   Style="{StaticResource MaterialDesignBody2TextBlock}"
+				   Text="{Binding LogText.Value}" />
 	</Grid>
 </metro:MetroWindow>

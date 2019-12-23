@@ -14,27 +14,35 @@ namespace HalationGhost.WinApps.ImaZip.ZipBookCreator
 {
 	public class MainWindowViewModel : HalationGhostViewModelBase
 	{
+		public ReadOnlyReactivePropertySlim<string> LogText { get; }
+
 		#region ContentRenderedイベント
 
 		public AsyncReactiveCommand ContentRendered { get; }
 
-		private async Task onContentRendered()
+		private async Task onContentRenderedAsync()
 		{
 			var args = Environment.GetCommandLineArgs();
 			if (args.Length <= 1)
 				return;
 
-			try
-			{
-				Mouse.OverrideCursor = Cursors.Wait;
+			//try
+			//{
+			//	Mouse.OverrideCursor = Cursors.Wait;
 
-				await new Creator().CreateZipBookAsync(args[1], this.relayStation);
-				MessageBox.Show("完了");
-			}
-			finally
-			{
-				Mouse.OverrideCursor = null;
-			}
+			//await new Creator().CreateZipBookAsync(args[1], this.relayStation);
+
+			await new Creator().CreateBookZipAsync(args[1], this.relayStation);
+
+			this.relayStation.AddLog($"************ CreateBook Finished! ************");
+
+			//Debug.WriteLine($"************ CreateBook Finished! ************");
+			//MessageBox.Show("完了");
+			//}
+			//finally
+			//{
+			//	Mouse.OverrideCursor = null;
+			//}
 		}
 
 		#endregion
@@ -47,8 +55,12 @@ namespace HalationGhost.WinApps.ImaZip.ZipBookCreator
 		{
 			this.relayStation = new CreatorRelayStation();
 
+			this.LogText = this.relayStation.Log
+				.ToReadOnlyReactivePropertySlim()
+				.AddTo(this.disposable);
+
 			this.ContentRendered = new AsyncReactiveCommand()
-				.WithSubscribe(() => this.onContentRendered())
+				.WithSubscribe(() => this.onContentRenderedAsync())
 				.AddTo(this.disposable);
 		}
 

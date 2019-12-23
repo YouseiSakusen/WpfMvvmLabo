@@ -6,39 +6,29 @@ using Reactive.Bindings.Extensions;
 
 namespace HalationGhost.WinApps.ImaZip
 {
-	/// <summary>
-	/// MainWindowのViewModelを表します。
-	/// </summary>
+	/// <summary>MainWindowのViewModelを表します。</summary>
 	public class MainWindowViewModel : HalationGhostViewModelBase
 	{
 		#region プロパティ
 
-		/// <summary>
-		/// MainWindowのタイトルを取得します。
-		/// </summary>
+		/// <summary>MainWindowのタイトルを取得します。</summary>
 		public ReactivePropertySlim<string> Title { get; }
 
-		/// <summary>
-		/// メニュー選択ボタンをドロップダウンするボタンのEnabledを取得します。
-		/// </summary>
+		/// <summary>メニュー選択ボタンをドロップダウンするボタンのEnabledを取得します。</summary>
 		public ReactivePropertySlim<bool> MenuSelectButtonEnabled { get; }
 
 		#endregion
 
 		#region コマンド
 
-		/// <summary>
-		/// 設定ViewqをLoadするコマンド。
-		/// </summary>
+		/// <summary>設定ViewをLoadするコマンド。</summary>
 		public ReactiveCommand<string> LoadSettingViews { get; }
 
-		/// <summary>
-		/// 設定ViewをLoadします。
-		/// </summary>
+		/// <summary>設定ViewをLoadします。</summary>
 		/// <param name="param">LoadするViewの種類を表す文字列。</param>
 		private void onLoadSettingViews(string param)
 		{
-			this.regionManager.RequestNavigate("FileListArea", "ZipFileListPanel");
+			var viewName = string.Empty;
 
 			switch (param)
 			{
@@ -47,9 +37,11 @@ namespace HalationGhost.WinApps.ImaZip
 				case "AppendToZipWithSave":
 					break;
 				case "CreateNewZip":
+					viewName = "ZipFileListPanel";
 					break;
 			}
 
+			this.regionManager.RequestNavigate("FileListArea", viewName);
 			this.MenuSelectButtonEnabled.Value = false;
 		}
 
@@ -78,19 +70,12 @@ namespace HalationGhost.WinApps.ImaZip
 
 		#region コンストラクタ
 
-		/// <summary>
-		/// Prismのリージョンマネージャを表します。
-		/// </summary>
+		/// <summary>Prismのリージョンマネージャを表します。</summary>
 		private IRegionManager regionManager = null;
-
-		/// <summary>
-		/// ImaZipのアプリケーション設定を表します。
-		/// </summary>
+		/// <summary>ImaZipのアプリケーション設定を表します。</summary>
 		private IImaZipCoreProto01Settings appSettings = null;
 
-		/// <summary>
-		/// コンストラクタ。
-		/// </summary>
+		/// <summary>コンストラクタ。</summary>
 		/// <param name="regMan">Prismのリージョンマネージャを表すIRegionManager。</param>
 		public MainWindowViewModel(IRegionManager regMan, IImaZipCoreProto01Settings imaZipSettings)
 		{

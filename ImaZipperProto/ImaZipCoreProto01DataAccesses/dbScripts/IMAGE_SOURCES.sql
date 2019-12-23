@@ -1,4 +1,4 @@
--- Script Date: 2019/11/27 16:20  - ErikEJ.SqlCeScripting version 3.5.2.81
+﻿-- Script Date: 2019/11/27 16:20  - ErikEJ.SqlCeScripting version 3.5.2.81
 DROP TABLE IMAGE_SOURCES
 ;
 

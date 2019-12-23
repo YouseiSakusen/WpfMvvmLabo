@@ -75,4 +75,24 @@ namespace ZipBookCreator
 		/// </summary>
 		ExtractFolderExisted
 	}
+
+	public enum ImageDirection
+	{
+		/// <summary>
+		/// 形無し
+		/// </summary>
+		NoDirection,
+		/// <summary>
+		/// 正方形を表します。
+		/// </summary>
+		Square,
+		/// <summary>
+		/// 横長の長方形を表します。
+		/// </summary>
+		Landscape,
+		/// <summary>
+		/// 縦長の長方形を表します。
+		/// </summary>
+		Portrait
+	}
 }
