@@ -26,6 +26,9 @@ namespace HalationGhost.WinApps.ImaZip.ZipBookCreator
 			if (args.Length <= 1)
 				return;
 
+			var watch = new Stopwatch();
+			watch.Start();
+
 			//try
 			//{
 			//	Mouse.OverrideCursor = Cursors.Wait;
@@ -34,6 +37,11 @@ namespace HalationGhost.WinApps.ImaZip.ZipBookCreator
 
 			await new Creator().CreateBookZipAsync(args[1], this.relayStation);
 
+			//await new CreatorTpl().CreateZipBookAsync(args[1], this.relayStation);
+
+			watch.Stop();
+
+			this.relayStation.AddLog($"実行時間 {watch.ElapsedMilliseconds} [ms]");
 			this.relayStation.AddLog($"************ CreateBook Finished! ************");
 
 			//Debug.WriteLine($"************ CreateBook Finished! ************");

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,33 +13,40 @@ using Reactive.Bindings.Extensions;
 
 namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 {
-	/// <summary>
-	/// ソースファイルリストを追加するViewを表します。
-	/// </summary>
+	/// <summary>ソースファイルリストを追加するViewを表します。</summary>
 	public class ZipFileListPanelViewModel : HalationGhostViewModelBase
 	{
 		#region プロパティ
 
+		/// <summary>zip ファイルを作成元のアーカイブファイルやフォルダを取得します。</summary>
 		public ReadOnlyReactiveCollection<ImageSourceViewModel> ImageSources { get; }
 
+		/// <summary>アーカイブファイル解凍先フォルダのパスを取得・設定します。</summary>
 		public ReactivePropertySlim<string> ImageFilesExtractedFolderPath { get; set; }
 
+		/// <summary>フォルダ名に使用する連番の桁数の選択肢を取得します。</summary>
 		public ReadOnlyReactiveCollection<int> FolderNameSequenceDigits { get; }
 
+		/// <summary>フォルダ名に使用する連番の桁数を取得・設定します。</summary>
 		public ReactiveProperty<int?> FolderNameSequenceDigit { get; set; }
 
+		/// <summary>フォルダ名のテンプレートを取得・設定します。</summary>
 		public ReactiveProperty<string> FolderNameTemplate { get; set; }
 
+		/// <summary>ファイル名のテンプレートを取得・設定します。</summary>
 		public ReactiveProperty<string> FileNameTemplate { get; set; }
 
 		#endregion
 
 		#region コマンド
 
-		#region イメージソースを追加
+		#region イメージソース追加
 
+		/// <summary>ファイル・フォルダ参照ボタン用コマンドを表します。</summary>
 		public ReactiveCommand<string> AddImageSource { get; }
 
+		/// <summary>ファイル・フォルダ参照ボタンClick時のイベントハンドラ。</summary>
+		/// <param name="param">コマンドパラメータを表す文字列。</param>
 		private void onAddImageSource(string param)
 		{
 			var settings = this.createCommonDialogSettings(param);
@@ -59,6 +65,9 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 			}
 		}
 
+		/// <summary>コモンダイアログ呼び出し設定情報を生成します。</summary>
+		/// <param name="param">コマンドパラメータを表す文字列。</param>
+		/// <returns>コモンダイアログ呼び出し設定情報を表すCommonDialogSettingBase。</returns>
 		private CommonDialogSettingBase createCommonDialogSettings(string param)
 		{
 			switch (param)
@@ -83,7 +92,8 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 
 		private void onSelectionChanged(SelectionChangedEventArgs e)
 		{
-			var selItems = this.ImageSources.Where(s => s.IsSelected.Value == true).ToList();
+			var selItems = this.ImageSources
+				.Where(s => s.IsSelected.Value == true).ToList();
 			if (selItems.Count == 0)
 			{
 				this.deleteEnabled.Value = false;
@@ -103,8 +113,10 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 				return;
 			}
 
-			this.moveUpEnabled.Value = this.ImageSources.First().Path.Value != selItems.First().Path.Value;
-			this.moveDownEnabled.Value = this.ImageSources.Last().Path.Value != selItems.Last().Path.Value;
+			this.moveUpEnabled.Value = this.ImageSources
+				.First().Path.Value != selItems.First().Path.Value;
+			this.moveDownEnabled.Value = this.ImageSources
+				.Last().Path.Value != selItems.Last().Path.Value;
 		}
 
 		public ReactiveCommand DeleteSource { get; }
@@ -128,8 +140,10 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 
 		}
 
+		/// <summary>アーカイブファイル解凍先指定ボタン用コマンドを表します。</summary>
 		public ReactiveCommand SelectExtractFolder { get; }
 
+		/// <summary>アーカイブファイル解凍先指定ボタンのClickイベントハンドラ。</summary>
 		private void onSelectExtractFolder()
 		{
 			var settings = new WinApiFolderPickerDialogSettings();
@@ -138,8 +152,11 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 				this.zipSettings.ImageFilesExtractedFolder.Value = settings.FolderPath;
 		}
 
+		/// <summary>zipファイル作成開始ボタン用コマンドを表します。</summary>
 		public AsyncReactiveCommand CreateZip { get; }
 
+		/// <summary>zipファイル作成開始ボタンのClickイベントハンドラ。</summary>
+		/// <returns>非同期処理結果を表すTask。</returns>
 		private Task onCreateZip()
 		{
 			if (!Directory.Exists(this.ImageFilesExtractedFolderPath.Value))
@@ -178,14 +195,16 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 		/// ダイアログサービスを表します。
 		/// </summary>
 		private IDialogService dialogService = null;
-
+		/// <summary>
+		/// zipファイル作成設定情報を表します。
+		/// </summary>
 		private ZipFileSettings zipSettings = new ZipFileSettings();
-
+		/// <summary>
+		/// イメージソースListBoxのデータソースを表します。
+		/// </summary>
 		private ObservableCollection<ImageSource> imgSrcList = new ObservableCollection<ImageSource>();
 
-		/// <summary>
-		/// コンストラクタ。
-		/// </summary>
+		/// <summary>コンストラクタ。</summary>
 		/// <param name="comDlgService">コモンダイアログサービスを表すICommonDialogService。</param>
 		/// <param name="imaZipSettings">アプリケーション設定を表すIImaZipCoreProto01Settings。</param>
 		public ZipFileListPanelViewModel(ICommonDialogService comDlgService,

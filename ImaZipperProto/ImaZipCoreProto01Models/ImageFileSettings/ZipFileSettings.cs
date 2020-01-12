@@ -2,19 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Reactive.Disposables;
-using Dapper.Contrib.Extensions;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 
 namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 {
-	/// <summary>
-	/// 作成するZipファイルの設定情報を表します。
-	/// </summary>
+	/// <summary>作成するZipファイルの設定情報を表します。</summary>
 	public class ZipFileSettings : BindableModelBase
 	{
 		private const string WORK_ROOT_FOLDER_NAME = "WorkTemp";
@@ -23,14 +18,10 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 
 		public int? ID { get; set; } = null;
 
-		/// <summary>
-		/// イメージファイルのソースファイルを取得します。
-		/// </summary>
+		/// <summary>イメージファイルのソースファイルを取得します。</summary>
 		public ObservableCollection<ImageSource> ImageSources { get; } = new ObservableCollection<ImageSource>();
 
-		/// <summary>
-		/// イメージファイルの展開先フォルダのパスを取得・設定します。
-		/// </summary>
+		/// <summary>イメージファイルの展開先フォルダのパスを取得・設定します。</summary>
 		public ReactivePropertySlim<string> ImageFilesExtractedFolder { get; set; }
 
 		public string EXTRACT_FOLDER
@@ -39,15 +30,14 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 			set { this.ImageFilesExtractedFolder.Value = value; }
 		}
 
-		/// <summary>
-		/// 設定情報の状態を取得します。
-		/// </summary>
+		/// <summary>設定情報の状態を取得します。</summary>
 		public ReactivePropertySlim<bool> IsComplete { get; }
 
 		public DateTime? InsertDate { get; set; } = null;
 
 		public string WorkRootFolderPath { get; private set; } = string.Empty;
 
+		/// <summary>フォルダ名の連番桁数を取得・設定します。</summary>
 		public ReactivePropertySlim<int?> FolderNameSequenceDigit { get; set; }
 
 		public int? FOLDER_NAME_SEQ
@@ -56,6 +46,7 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 			set { this.FolderNameSequenceDigit.Value = value; }
 		}
 
+		/// <summary>フォルダ名のテンプレートを取得・設定します。</summary>
 		public ReactivePropertySlim<string> FolderNameTemplate { get; set; }
 
 		public string FOLDER_NAME_TEMPLATE
@@ -64,6 +55,7 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 			set { this.FolderNameTemplate.Value = value; }
 		}
 
+		/// <summary>ファイル名のテンプレートを取得・設定します。</summary>
 		public ReactivePropertySlim<string> FileNameTemplate { get; set; }
 
 		public string FILE_NAME_TEMPLATE
@@ -76,9 +68,7 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 
 		#region メソッド
 
-		/// <summary>
-		/// イメージソースのパスを重複を削除して追加します。
-		/// </summary>
+		/// <summary>イメージソースのパスを重複を削除して追加します。</summary>
 		/// <param name="sourcePaths">イメージソースに追加するパスを表すList<string>。</param>
 		/// <param name="sourceType">追加するイメージソースの種類を表すImageSourceType列挙型の内の1つ。</param>
 		public void MergeToViewModels(List<string> sourcePaths, ImageSourceType sourceType)
@@ -103,21 +93,34 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 				return 0;
 		}
 
+		public string GetVolumeRootFolderName(int volumeNumber)
+		{
+			return this.FolderNameTemplate.Value
+				.Replace("?", volumeNumber.ToString()
+					.PadLeft(this.FolderNameSequenceDigit.Value.Value, '0'));
+		}
+
+		public string GetImageFileName(int volumeNumber, int fileSequence, int totalFileCountLength)
+		{
+			var fileName = this.FileNameTemplate.Value
+					.Replace("?", volumeNumber.ToString()
+						.PadLeft(this.FolderNameSequenceDigit.Value.Value, '0'));
+
+			return fileName.Replace("*", fileSequence.ToString()
+											.PadLeft(totalFileCountLength, '0'));
+		}
+
 		#endregion
 
 		#region イベントハンドラ
 
-		/// <summary>
-		/// イメージソースのCollectionChangedイベントハンドラ。
-		/// </summary>
+		/// <summary>イメージソースのCollectionChangedイベントハンドラ。</summary>
 		/// <param name="sender">イベントのソース。</param>
 		/// <param name="e">イベントデータを格納しているNotifyCollectionChangedEventArgs。</param>
 		private void ImageSources_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 			=> this.updateSettingState();
 
-		/// <summary>
-		/// 設定情報の状態を更新します。
-		/// </summary>
+		/// <summary>設定情報の状態を更新します。</summary>
 		private void updateSettingState()
 		{
 			if (this.ImageSources.Count == 0)
@@ -136,37 +139,28 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 
 		#region コンストラクタ
 
-		/// <summary>
-		/// IDisposableの集約先を表します。
-		/// </summary>
-		private CompositeDisposable disposables = new CompositeDisposable();
-
-		/// <summary>
-		/// 設定情報が完全かを表します。
-		/// </summary>
+		/// <summary>設定情報が完全かを表します。</summary>
 		private ReactivePropertySlim<bool> settingComplete { get; set; }
 
-		/// <summary>
-		/// デフォルトコンストラクタ。
-		/// </summary>
+		/// <summary>デフォルトコンストラクタ。</summary>
 		public ZipFileSettings()
 		{
 			this.settingComplete = new ReactivePropertySlim<bool>(false)
-				.AddTo(this.disposables);
+				.AddTo(this.Disposable);
 			this.ImageSources.CollectionChanged += this.ImageSources_CollectionChanged;
 
 			this.ImageFilesExtractedFolder = new ReactivePropertySlim<string>(string.Empty)
-				.AddTo(this.disposables);
+				.AddTo(this.Disposable);
 			this.ImageFilesExtractedFolder.Subscribe(_ => this.updateSettingState());
 
 			this.IsComplete = this.settingComplete
-				.AddTo(this.disposables);
+				.AddTo(this.Disposable);
 			this.FolderNameSequenceDigit = new ReactivePropertySlim<int?>(2)
-				.AddTo(this.disposables);
+				.AddTo(this.Disposable);
 			this.FolderNameTemplate = new ReactivePropertySlim<string>("?巻")
-				.AddTo(this.disposables);
+				.AddTo(this.Disposable);
 			this.FileNameTemplate = new ReactivePropertySlim<string>("?_*")
-				.AddTo(this.disposables);
+				.AddTo(this.Disposable);
 		}
 
 		#endregion

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using HalationGhost.WinApps.Images;
 using SharpCompress.Archives;
 
 namespace HalationGhost.WinApps.ImaZip
@@ -44,6 +45,10 @@ namespace HalationGhost.WinApps.ImaZip
 
 		public DistributionRule DistributionRule { get; private set; } = null;
 
+		public string DestinationFolderPath { get; set; } = string.Empty;
+
+		public bool IsSplit { get; set; } = false;
+
 		#endregion
 
 		public void CreateDistributionRule()
@@ -54,6 +59,8 @@ namespace HalationGhost.WinApps.ImaZip
 		public SourceItem(ImageSpecification imageSpec) : this(ImageSourceType.File, imageSpec.ImageFilePath)
 		{
 			this.ImageSpecification = imageSpec;
+			if (this.ImageSpecification.Direction == ImageDirection.Landscape)
+				this.IsSplit = true;
 		}
 
 		public SourceItem(ImageSourceType kind, string path) : base()

@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ImageSpecification.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper.Contrib" Version="2.0.30" />
     <PackageReference Include="Prism.Wpf" Version="7.2.0.1422" />
     <PackageReference Include="ReactiveProperty" Version="6.1.4" />
@@ -15,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HalationGhostImageLib\HalationGhostImageLib.csproj" />
     <ProjectReference Include="..\HalationGhostModelBase\HalationGhostModelBase.csproj" />
   </ItemGroup>
 

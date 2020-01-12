@@ -83,5 +83,15 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 				return setting;
 			}
 		}
+
+		public async Task<ZipFileSettings> GetZipFileSettingsAsync(string settingId)
+		{
+			using (var da = new ImageSourceDataAccess())
+			{
+				var setting = await da.GetZipFileSettingsAsync(settingId);
+
+				return setting;
+			}
+		}
 	}
 }

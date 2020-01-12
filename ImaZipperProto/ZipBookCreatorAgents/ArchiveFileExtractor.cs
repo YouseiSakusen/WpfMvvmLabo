@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using HalationGhost.WinApps.Images;
 using HalationGhost.WinApps.ImaZip.ImageFileSettings;
 using SharpCompress.Archives;
 using ZipBookCreator;
@@ -26,7 +27,10 @@ namespace HalationGhost.WinApps.ImaZip.ZipBookCreator
 
 				using (var archive = ArchiveFactory.Open(src.Path.Value))
 				{
+					src.ArchiveEntryTotalCount = archive.Entries.Where(e => !e.IsDirectory).Count();
 					var entries = archive.Entries.Where(e => SourceItem.IsTargetFile(e));
+
+					src.ArchiveEntryTargetCount = entries.Count();
 
 					Parallel.ForEach<IArchiveEntry, long>
 					(
@@ -93,7 +97,8 @@ namespace HalationGhost.WinApps.ImaZip.ZipBookCreator
 					e.WriteToDirectory(targetFolder.ItemPath);
 
 					var extractedPath = this.getExtractedFilePath(e, targetFolder);
-					targetFolder.Children.Add(new SourceItem(agent.GetImageSpecification(extractedPath)));
+					targetFolder.Children.Add(new SourceItem(ImageFile.GetImageSpecification(extractedPath)));
+					//targetFolder.Children.Add(new SourceItem(agent.GetImageSpecification(extractedPath)));
 					//targetFolder.Children.Add(new SourceItem(await agent.GetImageSpecificationAsync(extractedPath)));
 				}
 			}

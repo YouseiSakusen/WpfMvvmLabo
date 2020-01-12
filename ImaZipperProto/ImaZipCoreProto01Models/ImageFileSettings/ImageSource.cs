@@ -94,6 +94,10 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 
 		public List<SourceItem> Entries { get; } = new List<SourceItem>();
 
+		public int ArchiveEntryTotalCount { get; set; } = 0;
+
+		public int ArchiveEntryTargetCount { get; set; } = 0;
+
 		#endregion
 
 		public SourceItem GetExtractedFolder(string entryKey)

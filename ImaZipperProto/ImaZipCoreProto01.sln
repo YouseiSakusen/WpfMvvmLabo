@@ -48,7 +48,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HalationGhostModelBase", "H
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZipBookCreator", "ZipBookCreator\ZipBookCreator.csproj", "{0CAB0A2D-21BD-45D5-865B-9F19B3F34D25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZipBookCreatorAgents", "ZipBookCreatorAgents\ZipBookCreatorAgents.csproj", "{BE965F9D-2EBF-4D0D-A5DF-A0508A45F3E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZipBookCreatorAgents", "ZipBookCreatorAgents\ZipBookCreatorAgents.csproj", "{BE965F9D-2EBF-4D0D-A5DF-A0508A45F3E9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HalationGhostImageLib", "HalationGhostImageLib\HalationGhostImageLib.csproj", "{AA624D28-84A7-4868-BD95-152E34C8226B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZipBookCreatorAgentsTpl", "ZipBookCreatorAgentsTpl\ZipBookCreatorAgentsTpl.csproj", "{4C2A5F38-0B06-493E-8EEC-E1A2EC0CB634}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -144,6 +148,14 @@ Global
 		{BE965F9D-2EBF-4D0D-A5DF-A0508A45F3E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE965F9D-2EBF-4D0D-A5DF-A0508A45F3E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE965F9D-2EBF-4D0D-A5DF-A0508A45F3E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA624D28-84A7-4868-BD95-152E34C8226B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA624D28-84A7-4868-BD95-152E34C8226B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA624D28-84A7-4868-BD95-152E34C8226B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA624D28-84A7-4868-BD95-152E34C8226B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C2A5F38-0B06-493E-8EEC-E1A2EC0CB634}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C2A5F38-0B06-493E-8EEC-E1A2EC0CB634}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C2A5F38-0B06-493E-8EEC-E1A2EC0CB634}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C2A5F38-0B06-493E-8EEC-E1A2EC0CB634}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

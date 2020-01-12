@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HalationGhost.WinApps.Images;
 using HalationGhost.WinApps.ImaZip.ImageFileSettings;
 using ZipBookCreator;
 
@@ -40,8 +41,11 @@ namespace HalationGhost.WinApps.ImaZip.ZipBookCreator
 			//new SourceFileCollector().CheckSourceFiles(settings);
 		}
 
+		private CreatorRelayStation relay = null;
+
 		public async Task CreateBookZipAsync(string zipSettingId, CreatorRelayStation relayStation)
 		{
+			this.relay = relayStation;
 			relayStation.AddLog($"************ zipファイル作成開始！ ************");
 
 			// zip作成対象の情報を取得
@@ -49,18 +53,22 @@ namespace HalationGhost.WinApps.ImaZip.ZipBookCreator
 			if (settings == null)
 				return;
 
+//#if DEBUG
+//			await Task.Run(() => Directory.Delete(settings.ImageFilesExtractedFolder.Value, true));
+//#endif
+
 			// 展開エラーの有無チェック
 			var extractor = new ArchiveFileExtractor(relayStation);
 			if (!await Task.Run(() => extractor.HasExtractError(settings)))
 				return;
 
-			// 展開先ワークフォルダ作成
-			await this.createWorkFolderAsync(settings);
+			//// 展開先ワークフォルダ作成
+			//await this.createWorkFolderAsync(settings);
 
-			// アーカイブを展開
-			await extractor.ExtractAsync(settings)
-				.ContinueWith(async t => await this.createDistributesRules(settings))
-				.ContinueWith(async t => await this.distributesSourceItems(settings));
+			//// アーカイブを展開
+			//await extractor.ExtractAsync(settings)
+			//	.ContinueWith(async t => await this.createDistributesRules(settings))
+			//	.ContinueWith(async t => await this.distributesSourceItems(settings));
 		}
 
 		private async Task createWorkFolderAsync(ZipFileSettings settings)
@@ -91,13 +99,74 @@ namespace HalationGhost.WinApps.ImaZip.ZipBookCreator
 		{
 			await Task.Run(() =>
 			{
+				var seq = 1;
+
 				foreach (var imgSrc in settings.ImageSources)
 				{
-					var roots = imgSrc.Entries.OrderBy(e => e.FileName);
-
-
+					imgSrc.Entries
+						.OrderBy(e => e.FileName)
+						.ToList()
+						.ForEach(e =>
+						{
+							this.createDestinationFolder(e, settings, seq);
+							this.moveImageFiles(e, settings, seq);
+							seq++;
+						});
 				}
+
+				this.relay.AddLog($"************ 配置まですべて完了 ************");
 			});
+		}
+
+		private void createDestinationFolder(SourceItem volumeRoot, ZipFileSettings settings, int volumeNumber)
+		{
+			if (!string.IsNullOrEmpty(volumeRoot.DestinationFolderPath))
+				return;
+
+			volumeRoot.DestinationFolderPath = Path.Combine(settings.ImageFilesExtractedFolder.Value, settings.GetVolumeRootFolderName(volumeNumber));
+			if (!Directory.Exists(volumeRoot.DestinationFolderPath))
+				Directory.CreateDirectory(volumeRoot.DestinationFolderPath);
+		}
+
+		private void moveImageFiles(SourceItem rootItem, ZipFileSettings settings, int volumeNumber)
+		{
+			var seq = 1;
+			var fileCountLength = rootItem.Children.Count.ToString().Length;
+
+			foreach (var imageItem in rootItem.Children.OrderBy(c => c.FileName))
+			{
+				if (!File.Exists(imageItem.ItemPath))
+					continue;
+
+				var destinationPath = this.getImageFileName(settings, volumeNumber, seq, fileCountLength, imageItem, rootItem);
+
+				if (!imageItem.IsSplit)
+				{
+					File.Move(imageItem.ItemPath, destinationPath);
+					seq++;
+				}
+				else
+				{
+					seq++;
+					var leftImagePath = this.getImageFileName(settings, volumeNumber, seq, fileCountLength, imageItem, rootItem);
+					ImageFile.SplitVerticalToFile(imageItem.ItemPath, leftImagePath, destinationPath);
+					seq++;
+				}
+			}
+		}
+
+		private string getImageFileName(ZipFileSettings settings,
+										int volumeNumber,
+										int pageSequence,
+										int fileCountLength,
+										SourceItem imageItem,
+										SourceItem rootItem)
+		{
+			var newFileName = settings.GetImageFileName(volumeNumber,
+														pageSequence,
+														fileCountLength) + Path.GetExtension(imageItem.ItemPath);
+
+			return Path.Combine(rootItem.DestinationFolderPath, newFileName);
 		}
 	}
 }

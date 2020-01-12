@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Dapper;
 using HalationGhost.WinApps.DatabaseAccesses;
 
@@ -128,6 +129,57 @@ INSERT INTO IMAGE_SOURCES (
 
 		public ZipFileSettings GetZipFileSettings(string settingId)
 		{
+			var dic = new Dictionary<int, ZipFileSettings>();
+
+			this.Connection.Query<ZipFileSettings, ImageSource, ZipFileSettings>(
+				this.getZipFileSettingsSql(settingId),
+				(z, i) =>
+				{
+					ZipFileSettings entry = null;
+
+					if (!dic.TryGetValue(z.ID.Value, out entry))
+					{
+						dic.Add(z.ID.Value, z);
+						entry = z;
+					}
+
+					entry.ImageSources.Add(i);
+					return entry;
+				},
+				new { ID = settingId },
+				splitOn: "IMAGE_SOURCE_PATH");
+
+			return dic.Values.ToList().FirstOrDefault();
+		}
+
+		public async Task<ZipFileSettings> GetZipFileSettingsAsync(string settingId)
+		{
+			var dic = new Dictionary<int, ZipFileSettings>();
+
+			await this.Connection.QueryAsync<ZipFileSettings, ImageSource, ZipFileSettings>(
+				this.getZipFileSettingsSql(settingId),
+				(z, i) =>
+				{
+					ZipFileSettings entry = null;
+
+					if (!dic.TryGetValue(z.ID.Value, out entry))
+					{
+						dic.Add(z.ID.Value, z);
+						entry = z;
+					}
+
+					entry.ImageSources.Add(i);
+					return entry;
+				},
+				new { ID = settingId },
+				splitOn: "IMAGE_SOURCE_PATH"
+				);
+
+			return dic.Values.ToList().FirstOrDefault();
+		}
+
+		private string getZipFileSettingsSql(string settingId)
+		{
 			var sql = new StringBuilder(500);
 			sql.AppendLine(" SELECT ");
 			sql.AppendLine(" 	  ZFS.ID ");
@@ -146,27 +198,7 @@ INSERT INTO IMAGE_SOURCES (
 			sql.AppendLine(" ORDER BY ");
 			sql.AppendLine(" 	IMG.LIST_ORDER ");
 
-			var dic = new Dictionary<int, ZipFileSettings>();
-
-			this.Connection.Query<ZipFileSettings, ImageSource, ZipFileSettings>(
-				sql.ToString(),
-				(z, i) =>
-				{
-					ZipFileSettings entry = null;
-
-					if (!dic.TryGetValue(z.ID.Value, out entry))
-					{
-						dic.Add(z.ID.Value, z);
-						entry = z;
-					}
-
-					entry.ImageSources.Add(i);
-					return entry;
-				},
-				new { ID = settingId },
-				splitOn: "IMAGE_SOURCE_PATH");
-
-			return dic.Values.ToList().FirstOrDefault();
+			return sql.ToString();
 		}
 
 		/// <summary>

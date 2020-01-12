@@ -150,6 +150,8 @@
 							 md:HintAssist.Hint="フォルダ名のテンプレート"
 							 md:HintAssist.FloatingScale="0.9"
 							 md:TextFieldAssist.HasClearButton="True"
+							 metro:TextBoxHelper.IsMonitoring="True"
+							 metro:TextBoxHelper.SelectAllOnFocus="True"
 							 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
 							 Text="{Binding FolderNameTemplate.Value, Mode=TwoWay}"/>
 				</Grid>
@@ -162,6 +164,8 @@
 							 md:HintAssist.Hint="ファイル名のテンプレート"
 							 md:HintAssist.FloatingScale="0.9"
 							 md:TextFieldAssist.HasClearButton="True"
+							 metro:TextBoxHelper.IsMonitoring="True"
+							 metro:TextBoxHelper.SelectAllOnFocus="True"
 							 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
 							 Text="{Binding FileNameTemplate.Value, Mode=TwoWay}"/>
 					<TextBlock Grid.Row="1"
