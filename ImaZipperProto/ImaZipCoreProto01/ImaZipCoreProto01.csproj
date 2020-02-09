@@ -31,4 +31,12 @@
     <ProjectReference Include="..\ImaZipCreatoreProto01\ImaZipCreatoreProto01.csproj" />
     <ProjectReference Include="..\ImaZipSettingPanels\ImaZipSettingPanels.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Settings\DbConnectSetting.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Settings\ImaZipCoreProto01Settings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
