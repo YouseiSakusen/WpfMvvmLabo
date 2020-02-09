@@ -1,6 +1,20 @@
 # WpfMvvmLabo
 現在このリポジトリではフリーソフト：ImaZipper のプロトタイプを作成しています。
 
+## 開発 BLOG
+このプロトタイプアプリの実装内容をブログで紹介しています。
+
+### [WPF MVVM L@bo #1 ～ お前はまだ MahApps.Metro を知らない ～](https://elf-mission.net/programming/wpf/mvvm-labo/phase01/)
+新シリーズの第 1 回目なのでプロトタイプアプリの紹介を兼ねて長い前置きを書いたエントリ。  
+技術的な紹介としては MahApps.Metro に含まれるコントロールの内、TransitioningContentControl や TextBoxHelper 等他ではあまり紹介されていない機能を紹介しています。
+
+### [WPF MVVM L@bo #2 ～ MVVM さえあればいい。 ～](https://elf-mission.net/programming/wpf/mvvm-labo/phase02/)
+.NET Core で作成した WPF アプリからコモンダイアログを表示する方法と FolderBrowserDialog の .NET Core 対応状況を紹介しています。
+加えて、MVVM パターンで実装する場合に注意すべき点や重要なポイントも紹介しています。
+
+### [WPF MVVM L@bo #3 ～ SQLite ですが? ～](https://elf-mission.net/programming/wpf/mvvm-labo/phase03/)
+いつもとは少し毛色の違うエントリで、.NET Core で SQLite を使用する方法とその周辺で使用するツールを紹介するエントリ。
+
 ## ImaZipper とは
 自炊したマンガを [iPhone の SideBook](https://apps.apple.com/jp/app/sidebooks/id409777225) で読むために巻ごとに分かれているアーカイブファイルを 1 つの zip ファイルにするためのアプリです。
 
