@@ -2,16 +2,12 @@
 
 namespace HalationGhost.WinApps.DatabaseAccesses
 {
-	/// <summary>
-	/// IDbAccessHelperのファクトリを表します。
-	/// </summary>
+	/// <summary>IDbAccessHelperのファクトリを表します。</summary>
 	public static class DbAccessHelperFactory
 	{
 		#region メソッド
 
-		/// <summary>
-		/// IDbAccessHelperを生成します。
-		/// </summary>
+		/// <summary>IDbAccessHelperを生成します。</summary>
 		/// <param name="setting">DBの接続設定を表すDbConnectionSetting。</param>
 		/// <param name="targetNumber">接続先DBの番号を表すint?。</param>
 		/// <returns>DBへアクセスするためのIDbAccessHelper。</returns>

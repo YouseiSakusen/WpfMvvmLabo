@@ -62,13 +62,13 @@ namespace HalationGhost.WinApps.ImaZip.ZipBookCreator
 			if (!await Task.Run(() => extractor.HasExtractError(settings)))
 				return;
 
-			//// 展開先ワークフォルダ作成
-			//await this.createWorkFolderAsync(settings);
+			// 展開先ワークフォルダ作成
+			await this.createWorkFolderAsync(settings);
 
-			//// アーカイブを展開
-			//await extractor.ExtractAsync(settings)
-			//	.ContinueWith(async t => await this.createDistributesRules(settings))
-			//	.ContinueWith(async t => await this.distributesSourceItems(settings));
+			// アーカイブを展開
+			await extractor.ExtractAsync(settings)
+				.ContinueWith(async t => await this.createDistributesRules(settings))
+				.ContinueWith(async t => await this.distributesSourceItems(settings));
 		}
 
 		private async Task createWorkFolderAsync(ZipFileSettings settings)

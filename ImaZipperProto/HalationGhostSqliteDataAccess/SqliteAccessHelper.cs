@@ -6,15 +6,11 @@ using HalationGhost.WinApps.Utilities;
 
 namespace HalationGhost.WinApps.DatabaseAccesses.Sqlite
 {
-	/// <summary>
-	/// SQLiteデータベースアクセスヘルパを表します。
-	/// </summary>
+	/// <summary>SQLiteデータベースアクセスヘルパを表します。</summary>
 	public class SqliteAccessHelper : IDbAccessHelper
 	{
-		/// <summary>
-		/// DbConnectionを取得します。
-		/// </summary>
-		/// <returns>SQLiteへの接続を表すDbConnection。</returns>
+		/// <summary>DBのConnectionを取得します。</summary>
+		/// <returns>DBのConnectionを表すDbConnection。</returns>
 		public DbConnection GetConnection()
 		{
 			var con = new SQLiteConnection(SqliteAccessHelper.builder.ToString());
@@ -22,6 +18,9 @@ namespace HalationGhost.WinApps.DatabaseAccesses.Sqlite
 			return con.OpenAndReturn();
 		}
 
+		/// <summary>DBのトランザクションを取得します。</summary>
+		/// <param name="connection">トランザクションを取得するDbConnection。</param>
+		/// <returns>DBのトランザクションを表すDbTransaction。</returns>
 		public DbTransaction GetTransaction(DbConnection connection)
 		{
 			if (connection == null)

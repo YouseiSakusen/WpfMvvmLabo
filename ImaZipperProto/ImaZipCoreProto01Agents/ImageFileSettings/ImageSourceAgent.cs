@@ -45,20 +45,18 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 		/// <returns>zipファイル設定IDを表すlong?。</returns>
 		private long? saveZipSettings(ZipFileSettings settings)
 		{
-			using (var da = new ImageSourceDataAccess())
+			using (var da = new ZipFileSettingsRepository())
 			{
 				using (var tran = da.BeginTransaction())
 				{
 					try
 					{
-						var id = da.SaveZipSettings(settings);
+						var id = da.Save(settings);
 						if (!id.HasValue)
 						{
 							tran.Rollback();
 							return null;
 						}
-
-						da.SaveImageSources(settings.ImageSources.ToList(), id.Value);
 						tran.Commit();
 
 						return id;
