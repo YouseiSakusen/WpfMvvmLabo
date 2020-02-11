@@ -57,11 +57,6 @@ namespace HalationGhost.WinApps.ImaZip
 		{
 			base.Dispose(disposing);
 
-			foreach (var region in this.regionManager.Regions)
-			{
-				region.RemoveAll();
-			}
-
 			// アプリケーション設定を保存
 			AppSettingsService.SaveSettings((ImaZipCoreProto01Settings)this.appSettings);
 		}
@@ -70,16 +65,13 @@ namespace HalationGhost.WinApps.ImaZip
 
 		#region コンストラクタ
 
-		/// <summary>Prismのリージョンマネージャを表します。</summary>
-		private IRegionManager regionManager = null;
 		/// <summary>ImaZipのアプリケーション設定を表します。</summary>
 		private IImaZipCoreProto01Settings appSettings = null;
 
 		/// <summary>コンストラクタ。</summary>
 		/// <param name="regMan">Prismのリージョンマネージャを表すIRegionManager。</param>
-		public MainWindowViewModel(IRegionManager regMan, IImaZipCoreProto01Settings imaZipSettings)
+		public MainWindowViewModel(IRegionManager regMan, IImaZipCoreProto01Settings imaZipSettings) : base(regMan)
 		{
-			this.regionManager = regMan;
 			this.appSettings = imaZipSettings;
 
 			this.Title = new ReactivePropertySlim<string>(this.getApplicationTitle())

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reactive.Disposables;
 using Prism.Mvvm;
+using Prism.Regions;
 
 namespace HalationGhost.WinApps
 {
@@ -10,9 +11,22 @@ namespace HalationGhost.WinApps
 
 		protected CompositeDisposable disposable { get; } = new CompositeDisposable();
 
+		public IRegionManager regionManager { get; } = null;
+
 		#endregion
 
 		#region IDisposable Support
+
+		private void disposeRegions()
+		{
+			if (this.regionManager == null)
+				return;
+
+			foreach (var region in this.regionManager.Regions)
+			{
+				region.RemoveAll();
+			}
+		}
 
 		private bool disposedValue = false; // 重複する呼び出しを検出するには
 
@@ -23,6 +37,9 @@ namespace HalationGhost.WinApps
 				if (disposing)
 				{
 					this.disposable.Dispose();
+
+					// Region上のViewを破棄
+					this.disposeRegions();
 				}
 
 				// TODO: アンマネージ リソース (アンマネージ オブジェクト) を解放し、下のファイナライザーをオーバーライドします。
@@ -55,6 +72,11 @@ namespace HalationGhost.WinApps
 		public HalationGhostViewModelBase()
 		{
 
+		}
+
+		public HalationGhostViewModelBase(IRegionManager regionMan) : this()
+		{
+			this.regionManager = regionMan;
 		}
 
 		#endregion
