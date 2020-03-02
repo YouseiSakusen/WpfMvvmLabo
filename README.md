@@ -1,20 +1,6 @@
 # WpfMvvmLabo
 現在このリポジトリではフリーソフト：ImaZipper のプロトタイプを作成しています。
 
-## 開発 BLOG
-このプロトタイプアプリの実装内容をブログで紹介しています。
-
-### [WPF MVVM L@bo #1 ～ お前はまだ MahApps.Metro を知らない ～](https://elf-mission.net/programming/wpf/mvvm-labo/phase01/)
-新シリーズの第 1 回目なのでプロトタイプアプリの紹介を兼ねて長い前置きを書いたエントリ。  
-技術的な紹介としては MahApps.Metro に含まれるコントロールの内、TransitioningContentControl や TextBoxHelper 等他ではあまり紹介されていない機能を紹介しています。
-
-### [WPF MVVM L@bo #2 ～ MVVM さえあればいい。 ～](https://elf-mission.net/programming/wpf/mvvm-labo/phase02/)
-.NET Core で作成した WPF アプリからコモンダイアログを表示する方法と FolderBrowserDialog の .NET Core 対応状況を紹介しています。
-加えて、MVVM パターンで実装する場合に注意すべき点や重要なポイントも紹介しています。
-
-### [WPF MVVM L@bo #3 ～ SQLite ですが? ～](https://elf-mission.net/programming/wpf/mvvm-labo/phase03/)
-いつもとは少し毛色の違うエントリで、.NET Core で SQLite を使用する方法とその周辺で使用するツールを紹介するエントリ。
-
 ## ImaZipper とは
 自炊したマンガを [iPhone の SideBook](https://apps.apple.com/jp/app/sidebooks/id409777225) で読むために巻ごとに分かれているアーカイブファイルを 1 つの zip ファイルにするためのアプリです。
 
@@ -38,4 +24,22 @@
 - 複数の出力を指定して自動処理できるようにする。
 
 とりあえず上記が現時点で妖精作戦が想定している仕様ですが当然変更も発生しますし、プロトタイプを作成するための実験室なので名前空間等もいい加減ですし突然 UI が大幅に変わる可能性もあるのでご了承ください。
+
+## 開発 BLOG
+このプロトタイプアプリの実装内容をブログで紹介しています。
+
+### [WPF MVVM L@bo #1 ～ お前はまだ MahApps.Metro を知らない ～](https://elf-mission.net/programming/wpf/mvvm-labo/phase01/)
+新シリーズの第 1 回目なのでプロトタイプアプリの紹介を兼ねて長い前置きを書いたエントリ。  
+技術的な紹介としては MahApps.Metro に含まれるコントロールの内、TransitioningContentControl や TextBoxHelper 等他ではあまり紹介されていない機能を紹介しています。
+
+### [WPF MVVM L@bo #2 ～ MVVM さえあればいい。 ～](https://elf-mission.net/programming/wpf/mvvm-labo/phase02/)
+.NET Core で作成した WPF アプリからコモンダイアログを表示する方法と FolderBrowserDialog の .NET Core 対応状況を紹介しています。
+加えて、MVVM パターンで実装する場合に注意すべき点や重要なポイントも紹介しています。
+
+### [WPF MVVM L@bo #3 ～ SQLite ですが? ～](https://elf-mission.net/programming/wpf/mvvm-labo/phase03/)
+いつもとは少し毛色の違うエントリで、.NET Core で SQLite を使用する方法とその周辺で使用するツールを紹介するエントリ。
+
+### [WPF MVVM L@bo #4 ～ DB が見えるのは嫌なので 3 階層 に AbstractFactory したいと思います。 ～](https://elf-mission.net/programming/wpf/mvvm-labo/phase04/)
+プロトタイプアプリから DB にアクセスするための 3 階層アーキテクチャと使用する DB をアプリケーション層から隠蔽するための AbstractFactory パターンを紹介しているエントリ。
+
 
