@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using HalationGhost.WinApps.Images;
 using HalationGhost.WinApps.ImaZip.ImageFileSettings;
-using ZipBookCreator;
 
 namespace HalationGhost.WinApps.ImaZip.ZipBookCreator
 {
+	/// <summary>zipファイルの作成処理を表します。</summary>
 	public class Creator
 	{
 		public async Task CreateZipBookAsync(string zipSettingId, CreatorRelayStation relayStation)
@@ -41,15 +38,20 @@ namespace HalationGhost.WinApps.ImaZip.ZipBookCreator
 			//new SourceFileCollector().CheckSourceFiles(settings);
 		}
 
+		/// <summary>Modelの情報をVMに中継します。</summary>
 		private CreatorRelayStation relay = null;
 
+		/// <summary>ブックデータを格納したzipファイルを作成します。</summary>
+		/// <param name="zipSettingId">作成するzipファイル情報の登録済みIDを表す文字列。</param>
+		/// <param name="relayStation">Modelの情報をVMに中継するためのCreatorRelayStation。</param>
+		/// <returns>非同期処理の実行結果を表すTask。</returns>
 		public async Task CreateBookZipAsync(string zipSettingId, CreatorRelayStation relayStation)
 		{
 			this.relay = relayStation;
 			relayStation.AddLog($"************ zipファイル作成開始！ ************");
 
 			// zip作成対象の情報を取得
-			var settings = new ImageSourceAgent().GetZipFileSettings(zipSettingId);
+			var settings = new ZipFileSettingsRepository().GetById(zipSettingId);
 			if (settings == null)
 				return;
 

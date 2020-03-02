@@ -114,24 +114,24 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 		/// <param name="zipSettingId">zipファイル設定のIDを表すlong。</param>
 		private void saveImageSources(ObservableCollection<ImageSource> imageSources, long? zipSettingId)
 		{
-			var sql = @"
-INSERT INTO IMAGE_SOURCES (
-	  ZIP_SETTINGS_ID
-	, IMAGE_SOURCE_PATH
-	, SOURCE_KIND
-	, LIST_ORDER
-) VALUES (
-	  :ZIP_SETTINGS_ID
-	, :IMAGE_SOURCE_PATH
-	, :SOURCE_KIND
-	, :LIST_ORDER
-)
-";
+			var sql = new StringBuilder(400);
+			sql.AppendLine(" INSERT INTO IMAGE_SOURCES ( ");
+			sql.AppendLine(" 	  ZIP_SETTINGS_ID ");
+			sql.AppendLine(" 	, IMAGE_SOURCE_PATH ");
+			sql.AppendLine(" 	, SOURCE_KIND ");
+			sql.AppendLine(" 	, LIST_ORDER ");
+			sql.AppendLine(" ) VALUES ( ");
+			sql.AppendLine(" 	  :ZIP_SETTINGS_ID ");
+			sql.AppendLine(" 	, :IMAGE_SOURCE_PATH ");
+			sql.AppendLine(" 	, :SOURCE_KIND ");
+			sql.AppendLine(" 	, :LIST_ORDER ");
+			sql.AppendLine(" 	) ");
+
 			var order = 1;
 
 			imageSources.ToList().ForEach(s =>
 			{
-				this.Connection.Execute(sql, new
+				this.Connection.Execute(sql.ToString(), new
 				{
 					ZIP_SETTINGS_ID = zipSettingId,
 					IMAGE_SOURCE_PATH = s.Path.Value,
@@ -148,15 +148,15 @@ INSERT INTO IMAGE_SOURCES (
 		/// <returns>オートナンバー型フィールドに採番されたIDを表すlong?。</returns>
 		private long? getAutoNumber(string tableName)
 		{
-			var sql = @"
-SELECT
-	SSQ.seq
-FROM
-	sqlite_sequence SSQ
-WHERE
-	SSQ.name = :name
-";
-			var seq = this.Connection.QueryFirstOrDefault(sql, new { name = tableName });
+			var sql = new StringBuilder(200);
+			sql.AppendLine(" SELECT ");
+			sql.AppendLine(" 	SSQ.seq ");
+			sql.AppendLine(" FROM ");
+			sql.AppendLine(" 	sqlite_sequence SSQ ");
+			sql.AppendLine(" WHERE ");
+			sql.AppendLine(" 	SSQ.name = :name ");
+
+			var seq = this.Connection.QueryFirstOrDefault(sql.ToString(), new { name = tableName });
 
 			if (seq == null)
 			{

@@ -1,25 +1,24 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
+﻿using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
 
 namespace HalationGhost.WinApps.ImaZip.ZipBookCreator
 {
+	/// <summary>zipファイル作成アプリのMainWindowを表します。</summary>
 	public class MainWindowViewModel : HalationGhostViewModelBase
 	{
+		/// <summary>ログを取得します。</summary>
 		public ReadOnlyReactivePropertySlim<string> LogText { get; }
 
 		#region ContentRenderedイベント
 
+		/// <summary>ContentRenderedイベントCommand</summary>
 		public AsyncReactiveCommand ContentRendered { get; }
 
+		/// <summary>ContentRenderedイベントハンドラ。</summary>
+		/// <returns>実行したTask。</returns>
 		private async Task onContentRenderedAsync()
 		{
 			var args = Environment.GetCommandLineArgs();
@@ -57,8 +56,10 @@ namespace HalationGhost.WinApps.ImaZip.ZipBookCreator
 
 		#region コンストラクタ
 
+		/// <summary>Modelの情報を中継します。</summary>
 		private CreatorRelayStation relayStation = null;
 
+		/// <summary>コンストラクタ。</summary>
 		public MainWindowViewModel()
 		{
 			this.relayStation = new CreatorRelayStation();

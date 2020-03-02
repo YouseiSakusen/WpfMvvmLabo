@@ -22,6 +22,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HalationGhostWpfViewModels\HalationGhostWpfViewModels.csproj" />
+    <ProjectReference Include="..\ImaZipCoreProto01DataAccesses\ImaZipCoreProto01DataAccesses.csproj" />
     <ProjectReference Include="..\ZipBookCreatorAgentsTpl\ZipBookCreatorAgentsTpl.csproj" />
     <ProjectReference Include="..\ZipBookCreatorAgents\ZipBookCreatorAgents.csproj" />
   </ItemGroup>

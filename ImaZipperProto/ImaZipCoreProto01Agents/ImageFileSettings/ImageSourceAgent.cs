@@ -61,7 +61,7 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 
 						return id;
 					}
-					catch (Exception)
+					catch (Exception ex)
 					{
 						tran.Rollback();
 						throw;
