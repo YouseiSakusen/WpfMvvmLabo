@@ -6,7 +6,11 @@
     <RootNamespace>HalationGhost.WinApps</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
     <PackageReference Include="Prism.Wpf" Version="7.2.0.1422" />
     <PackageReference Include="System.Reactive" Version="4.3.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HalationGhostWin32Api\HalationGhostWin32Api.csproj" />
   </ItemGroup>
 </Project>

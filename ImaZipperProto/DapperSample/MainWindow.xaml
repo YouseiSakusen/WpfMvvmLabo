@@ -1,0 +1,23 @@
+﻿<metro:MetroWindow x:Class="DapperSample.MainWindow"
+				   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+				   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				   xmlns:bh="http://schemas.microsoft.com/xaml/behaviors"
+				   xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+				   xmlns:prism="http://prismlibrary.com/"
+				   xmlns:hgBh="clr-namespace:HalationGhost.WinApps.Behaviors;assembly=HalationGhostWpfViewModels"
+				   prism:ViewModelLocator.AutoWireViewModel="True"
+				   Title="DapperSample"
+				   Width="800" Height="600"
+				   TitleCharacterCasing="Normal"
+				   GlowBrush="{StaticResource PrimaryHueLightBrush}"
+				   BorderThickness="1"
+				   WindowStartupLocation="CenterScreen">
+	<bh:Interaction.Triggers>
+		<bh:EventTrigger EventName="Closed">
+			<hgBh:DataContextDisposeAction />
+		</bh:EventTrigger>
+	</bh:Interaction.Triggers>
+	<Grid>
+			
+	</Grid>
+</metro:MetroWindow>

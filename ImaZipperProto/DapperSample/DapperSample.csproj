@@ -3,27 +3,21 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
-    <AssemblyName>ZipBookCreator</AssemblyName>
-    <RootNamespace>HalationGhost.WinApps.ImaZip.ZipBookCreator</RootNamespace>
+    <AssemblyName>DapperSample</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <NoWarn>1701;1702;NU1701</NoWarn>
-    <OutputPath>D:\MyDocuments\GitHubRepositories\WpfMvvmLabo\ImaZipperProto\ImaZipCoreProto01\bin\Debug\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="LivetCask.Behaviors" Version="3.2.2.1" />
     <PackageReference Include="MahApps.Metro" Version="1.6.5" />
     <PackageReference Include="MaterialDesignColors" Version="1.2.2" />
     <PackageReference Include="MaterialDesignThemes" Version="3.0.1" />
     <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.1.0" />
-    <PackageReference Include="Prism.Unity" Version="7.2.0.1422" />
-    <PackageReference Include="ReactiveProperty" Version="6.2.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
+    <PackageReference Include="Prism.DryIoc" Version="7.2.0.1367" />
     <PackageReference Include="System.Management" Version="4.7.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HalationGhostWpfViewModels\HalationGhostWpfViewModels.csproj" />
-    <ProjectReference Include="..\ImaZipCoreProto01DataAccesses\ImaZipCoreProto01DataAccesses.csproj" />
-    <ProjectReference Include="..\ZipBookCreatorAgentsTpl\ZipBookCreatorAgentsTpl.csproj" />
-    <ProjectReference Include="..\ZipBookCreatorAgents\ZipBookCreatorAgents.csproj" />
   </ItemGroup>
 </Project>
