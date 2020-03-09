@@ -18,6 +18,16 @@
 		</bh:EventTrigger>
 	</bh:Interaction.Triggers>
 	<Grid>
-			
+		<Grid.RowDefinitions>
+			<RowDefinition Height="0.1*"/>
+			<RowDefinition Height="0.9*"/>
+		</Grid.RowDefinitions>
+		<StackPanel Grid.Row="0"
+					Margin="10, 0, 0, 0"
+					Orientation="Horizontal">
+			<Button Content="Dynamicで取得"
+					Command="{Binding GetDynamic}"/>
+		</StackPanel>
+		<TextBlock Grid.Row="1" TextWrapping="Wrap" />
 	</Grid>
 </metro:MetroWindow>
