@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DbConnectionSetting xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/HalationGhost.WinApps.DatabaseAccesses">
+  <ConnectInformations>
+    <DbConnectInformation>
+      <DataSource>{exePath}\SampleDb.sqlite3</DataSource>
+      <DbType>SQLite</DbType>
+      <Number>0</Number>
+    </DbConnectInformation>
+  </ConnectInformations>
+  <TargetNumber>0</TargetNumber>
+</DbConnectionSetting>

@@ -10,7 +10,7 @@
     <NoWarn>1701;1702;NU1701</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="LivetCask.Behaviors" Version="3.2.2.1" />
+    <PackageReference Include="LivetCask.Behaviors" Version="3.2.2.2" />
     <PackageReference Include="MahApps.Metro" Version="1.6.5" />
     <PackageReference Include="MaterialDesignColors" Version="1.2.2" />
     <PackageReference Include="MaterialDesignThemes" Version="3.0.1" />

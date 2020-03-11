@@ -204,7 +204,7 @@ INSERT INTO IMAGE_SOURCES (
 		/// <summary>
 		/// コンストラクタ。
 		/// </summary>
-		public ImageSourceDataAccess() : base()
+		public ImageSourceDataAccess() : base(new HalationGhostDbConnectSettingLoaderBase("Settings", "DbConnectSetting.xml"))
 		{
 
 		}

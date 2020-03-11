@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>DapperSampleApplicationLayer</AssemblyName>
+    <RootNamespace>DapperSample</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Prism.DryIoc" Version="7.2.0.1422" />
+    <PackageReference Include="Prism.Wpf" Version="7.2.0.1422" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DapperSampleDataAccess\DapperSampleDataAccess.csproj" />
+    <ProjectReference Include="..\DapperSampleEntities\DapperSampleEntities.csproj" />
+  </ItemGroup>
+</Project>

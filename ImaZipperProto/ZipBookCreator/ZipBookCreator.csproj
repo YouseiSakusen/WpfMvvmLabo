@@ -11,7 +11,7 @@
     <OutputPath>D:\MyDocuments\GitHubRepositories\WpfMvvmLabo\ImaZipperProto\ImaZipCoreProto01\bin\Debug\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="LivetCask.Behaviors" Version="3.2.2.1" />
+    <PackageReference Include="LivetCask.Behaviors" Version="3.2.2.2" />
     <PackageReference Include="MahApps.Metro" Version="1.6.5" />
     <PackageReference Include="MaterialDesignColors" Version="1.2.2" />
     <PackageReference Include="MaterialDesignThemes" Version="3.0.1" />

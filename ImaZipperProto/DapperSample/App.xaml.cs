@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Windows;
 using Prism.Ioc;
+using Prism.Modularity;
 using Prism.Mvvm;
 
 namespace DapperSample
@@ -11,6 +12,11 @@ namespace DapperSample
 	/// </summary>
 	public partial class App
 	{
+		protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
+		{
+			moduleCatalog.AddModule<DapperSampleApplicationLayerModule>();
+		}
+
 		/// <summary>
 		/// ViewModelLocatorを設定します。
 		/// </summary>
@@ -35,7 +41,7 @@ namespace DapperSample
 
 		protected override void RegisterTypes(IContainerRegistry containerRegistry)
 		{
-
+			containerRegistry.Register<IDapperSampleService, DapperSampleService>();
 		}
 	}
 }

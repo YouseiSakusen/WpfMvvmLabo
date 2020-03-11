@@ -57,8 +57,8 @@ namespace HalationGhost.WinApps.DatabaseAccesses
 		#region コンストラクタ
 
 		/// <summary>デフォルトコンストラクタ。</summary>
-		public HalationGhostDbAccessBase() : base()
-			=> this.initializeConnection();
+		public HalationGhostDbAccessBase(HalationGhostDbConnectSettingLoaderBase loader) : base()
+			=> this.initializeConnection(loader);
 
 		/// <summary>キャッシュした接続文字列を表します。</summary>
 		private static DbConnectionSetting connectionSetting = null;
@@ -68,12 +68,16 @@ namespace HalationGhost.WinApps.DatabaseAccesses
 		/// <summary>
 		/// 接続を初期化します。
 		/// </summary>
-		private void initializeConnection()
+		private void initializeConnection(HalationGhostDbConnectSettingLoaderBase loader)
 		{
 			if (HalationGhostDbAccessBase.connectionSetting == null)
 			{
+				HalationGhostDbConnectSettingLoaderBase settingLoader = loader;
+				if (settingLoader == null)
+					settingLoader = new HalationGhostDbConnectSettingLoaderBase();
+
 				// キャッシュされていない場合は接続設定ファイルを読み込む
-				HalationGhostDbAccessBase.connectionSetting = new DbConnectionSettingLoader().Load();
+				HalationGhostDbAccessBase.connectionSetting = settingLoader.Load();
 				if (HalationGhostDbAccessBase.connectionSetting == null)
 					throw new Exception("DBの接続設定ファイルがLoadできません。");
 			}

@@ -25,9 +25,12 @@
 		<StackPanel Grid.Row="0"
 					Margin="10, 0, 0, 0"
 					Orientation="Horizontal">
-			<Button Content="Dynamicで取得"
+			<Button Content="Dynamic型で取得"
 					Command="{Binding GetDynamic}"/>
 		</StackPanel>
-		<TextBlock Grid.Row="1" TextWrapping="Wrap" />
+		<TextBlock Grid.Row="1" TextWrapping="Wrap"
+				   Margin="10, 5, 0, 0"
+				   Style="{StaticResource MaterialDesignBody2TextBlock}"
+				   Text="{Binding Console.Value, Mode=OneWay}"/>
 	</Grid>
 </metro:MetroWindow>

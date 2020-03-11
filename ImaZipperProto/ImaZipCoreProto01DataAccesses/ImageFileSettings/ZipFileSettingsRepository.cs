@@ -170,5 +170,8 @@ namespace HalationGhost.WinApps.ImaZip.ImageFileSettings
 					return (long)seq.seq;
 			}
 		}
+
+		public ZipFileSettingsRepository()
+			: base(new HalationGhostDbConnectSettingLoaderBase("Settings", "DbConnectSetting.xml")) { }
 	}
 }
