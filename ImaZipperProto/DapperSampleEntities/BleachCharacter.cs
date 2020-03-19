@@ -4,98 +4,82 @@ using Reactive.Bindings.Extensions;
 
 namespace DapperSample
 {
+	/// <summary>BLEACHのキャラクターを表します。</summary>
 	public class BleachCharacter : BindableModelBase
 	{
-		private int id = 0;
-		public int Id
+		//public long Id { get; set; } = 0;
+
+		//public string Name { get; set; } = string.Empty;
+
+		//public string Furigana { get; set; } = string.Empty;
+
+		//public string Birthday { get; set; } = string.Empty;
+
+		//public long OrganizationId { get; set; } = 0;
+
+		//public string OrganizationName { get; set; } = string.Empty;
+
+		//public long ZanpakutouId { get; set; } = 0;
+
+		//public string ZanpakutouName { get; set; } = string.Empty;
+
+		private ReactivePropertySlim<long> _id;
+
+		/// <summary>キャラクターIDを取得・設定します。</summary>
+		public ReactivePropertySlim<long> Id
 		{
-			get { return id; }
-			set { SetProperty(ref id, value); }
+			get => this._id;
+			set
+			{
+				this._id?.Dispose();
+				this._id = value;
+			}
 		}
 
-		private string name = string.Empty;
-		public string Name
+		//public ReactivePropertySlim<long> Id { get; }
+
+		private ReactivePropertySlim<string> _name;
+
+		/// <summary>キャラクター名を取得・設定します。</summary>
+		public ReactivePropertySlim<string> Name
 		{
-			get { return name; }
-			set { SetProperty(ref name, value); }
+			get => this._name;
+			set
+			{
+				this._name?.Dispose();
+				this._name = value;
+			}
 		}
 
-		private string kana = string.Empty;
-		public string Kana
+
+		//public ReactivePropertySlim<string> Name { get; }
+
+		public ReactivePropertySlim<string> Furigana { get; set; }
+
+		public ReactivePropertySlim<string> Birthday { get; set; }
+
+		public ReactivePropertySlim<long> OrganizationId { get; set; }
+
+		public ReactivePropertySlim<string> OrganizationName { get; set; }
+
+		public ReactivePropertySlim<long> ZanpakutouId { get; set; }
+
+		public ReactivePropertySlim<string> ZanpakutouName { get; set; }
+
+		public ReactivePropertySlim<string> BankaiName { get; set; }
+
+		/// <summary>コンストラクタ。</summary>
+		public BleachCharacter()
 		{
-			get { return kana; }
-			set { SetProperty(ref kana, value); }
+			this._id = new ReactivePropertySlim<long>(0);
+			this._name = new ReactivePropertySlim<string>(string.Empty);
+			this.Furigana = new ReactivePropertySlim<string>(string.Empty);
+			this.Birthday = new ReactivePropertySlim<string>(string.Empty);
+			this.OrganizationId = new ReactivePropertySlim<long>(0);
+			this.OrganizationName = new ReactivePropertySlim<string>(string.Empty);
+			this.ZanpakutouId = new ReactivePropertySlim<long>(0);
+			this.ZanpakutouName = new ReactivePropertySlim<string>(string.Empty);
+			this.BankaiName = new ReactivePropertySlim<string>(string.Empty);
 		}
-
-		private string birthday = string.Empty;
-		public string Birthday
-		{
-			get { return birthday; }
-			set { SetProperty(ref birthday, value); }
-		}
-
-		private int orgId = 0;
-		public int OrganizationId
-		{
-			get { return orgId; }
-			set { SetProperty(ref orgId, value); }
-		}
-
-		private string orgName = string.Empty;
-		public string OrganizationName
-		{
-			get { return orgName; }
-			set { SetProperty(ref orgName, value); }
-		}
-
-		private int zanpakuId = 0;
-		public int ZanpakutouId
-		{
-			get { return zanpakuId; }
-			set { SetProperty(ref zanpakuId, value); }
-		}
-
-		private string zanpakuSword = string.Empty;
-		public string ZanpakutouName
-		{
-			get { return zanpakuSword; }
-			set { SetProperty(ref zanpakuSword, value); }
-		}
-
-		//public ReactivePropertySlim<int> Id { get; set; }
-
-		//public ReactivePropertySlim<string> Name { get; set; }
-
-		//public ReactivePropertySlim<string> Furigana { get; set; }
-
-		//public ReactivePropertySlim<string> Birthday { get; set; }
-
-		//public ReactivePropertySlim<int> OrganizationId { get; set;	 }
-
-		//public ReactivePropertySlim<string> OrganizationName { get; set; }
-
-		//public ReactivePropertySlim<int> ZanpakutouId { get; set; }
-
-		//public ReactivePropertySlim<string> ZanpakutouName { get; set; }
-
-		//public BleachCharacter()
-		//{
-		//	this.Id = new ReactivePropertySlim<int>(0)
-		//		.AddTo(this.Disposable);
-		//	this.Name = new ReactivePropertySlim<string>(string.Empty)
-		//		.AddTo(this.Disposable);
-		//	this.Furigana = new ReactivePropertySlim<string>(string.Empty)
-		//		.AddTo(this.Disposable);
-		//	this.Birthday = new ReactivePropertySlim<string>(string.Empty)
-		//		.AddTo(this.Disposable);
-		//	this.OrganizationId = new ReactivePropertySlim<int>(0)
-		//		.AddTo(this.Disposable);
-		//	this.OrganizationName = new ReactivePropertySlim<string>(string.Empty)
-		//		.AddTo(this.Disposable);
-		//	this.ZanpakutouId = new ReactivePropertySlim<int>(0)
-		//		.AddTo(this.Disposable);
-		//	this.ZanpakutouName = new ReactivePropertySlim<string>(string.Empty)
-		//		.AddTo(this.Disposable);
-		//}
 	}
 }

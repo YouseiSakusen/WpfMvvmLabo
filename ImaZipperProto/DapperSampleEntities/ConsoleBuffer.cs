@@ -9,6 +9,11 @@ namespace DapperSample
 	{
 		public ReactivePropertySlim<string> ConsoleText { get; set; }
 
+		public void Clear()
+		{
+			this.ConsoleText.Value = string.Empty;
+		}
+
 		public void AppendLineToBuffer(string text)
 		{
 			var buf = new StringBuilder(this.ConsoleText.Value);

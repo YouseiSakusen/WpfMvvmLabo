@@ -10,7 +10,7 @@ namespace HalationGhost
 	{
 		#region プロパティ
 
-		protected CompositeDisposable Disposable { get; } = new CompositeDisposable();
+		public CompositeDisposable Disposable { get; } = new CompositeDisposable();
 
 		#endregion
 
