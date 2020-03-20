@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Dapper;
 
 namespace DapperSample
@@ -124,6 +125,125 @@ namespace DapperSample
 			sql.AppendLine(" 	) CHR LIMIT 10 ");
 
 			return this.Connection.Query(sql.ToString(), commandType: System.Data.CommandType.Text);
+		}
+
+		/// <summary>CHARACTERSテーブルの最大オートナンバーを取得します。</summary>
+		/// <returns>CHARACTERSテーブルの最大オートナンバーを表すlong。</returns>
+		public long GetCharacterSeq()
+		{
+			var sql = new StringBuilder(150);
+			sql.AppendLine(" SELECT ");
+			sql.AppendLine(" 	SEQ.seq ");
+			sql.AppendLine(" FROM ");
+			sql.AppendLine(" 	sqlite_sequence SEQ ");
+			sql.AppendLine(" WHERE ");
+			sql.AppendLine(" 	SEQ.name = :name ");
+
+			return this.Connection.ExecuteScalar<long>(sql.ToString(), new { name = "CHARACTERS" });
+		}
+
+		/// <summary>指定した数値より大きいIDのキャラクターを取得します。</summary>
+		/// <param name="minId">このパラメータに指定したより大きいIDのキャラクターを取得します。</param>
+		/// <returns>指定した数値より大きいIDのキャラクターを表すTask<IEnumerable<BleachCharacter>>。</returns>
+		public async Task<IEnumerable<BleachCharacter>> GetCharactersByIdOrverAsync(long minId)
+		{
+			var sql = new StringBuilder(1000);
+			sql.AppendLine(" SELECT ");
+			sql.AppendLine(" 	  CHR.ID AS Id ");
+			sql.AppendLine(" 	, CHR.CHARACTER_NAME AS Name ");
+			sql.AppendLine(" 	, CHR.KANA AS Furigana ");
+			sql.AppendLine(" 	, ORG.ORGANIZATION_NAME AS OrganizationName ");
+			sql.AppendLine(" FROM ");
+			sql.AppendLine(" 	( ");
+			sql.AppendLine(" 	SELECT ");
+			sql.AppendLine(" 		CHR.ID ");
+			sql.AppendLine(" 		, CHR.CHARACTER_NAME ");
+			sql.AppendLine(" 		, CHR.KANA ");
+			sql.AppendLine(" 		, CHR.ORGANIZATION ");
+			sql.AppendLine(" 		, CHR.ZANPAKUTOU ");
+			sql.AppendLine(" 	FROM ");
+			sql.AppendLine(" 		CHARACTERS CHR ");
+			sql.AppendLine(" 	WHERE ");
+			sql.AppendLine(" 		CHR.ID > :Id ");
+			sql.AppendLine(" 	) CHR ");
+			sql.AppendLine(" 	LEFT JOIN ORGANIZATIONS ORG ON ");
+			sql.AppendLine(" 		CHR.ORGANIZATION = ORG.ID ");
+			sql.AppendLine(" 	LEFT JOIN ZANPAKUTOU ZPT ON ");
+			sql.AppendLine(" 		CHR.ZANPAKUTOU = ZPT.ID ");
+			sql.AppendLine(" ORDER BY ");
+			sql.AppendLine(" 	CHR.KANA ");
+
+			return await this.Connection.QueryAsync<BleachCharacter>(sql.ToString(), new { Id = minId });
+		}
+
+		/// <summary>キャラクターを登録します。</summary>
+		/// <param name="character">登録するキャラクターを表すBleachCharacter。</param>
+		/// <returns>登録件数を表すint。</returns>
+		public int RegistCharacter(BleachCharacter character)
+		{
+			var sql = new StringBuilder(300);
+			sql.AppendLine(" INSERT INTO CHARACTERS( ");
+			sql.AppendLine(" 	  CHARACTER_NAME ");
+			sql.AppendLine(" 	, KANA ");
+			sql.AppendLine(" 	, ORGANIZATION ");
+			sql.AppendLine(" ) VALUES ( ");
+			sql.AppendLine(" 	  :Name ");
+			sql.AppendLine(" 	, :Furigana ");
+			sql.AppendLine(" 	, :OrganizationId ");
+			sql.AppendLine(" ) ");
+
+			return this.Connection.Execute(sql.ToString(), character);
+		}
+
+		/// <summary>キャラクターを登録します。（非同期）</summary>
+		/// <param name="character">登録するキャラクターを表すBleachCharacter。</param>
+		/// <returns>登録件数を表すint。</returns>
+		public async Task<int> RegistCharacterAsync(BleachCharacter character)
+		{
+			var sql = new StringBuilder(300);
+			sql.AppendLine(" INSERT INTO CHARACTERS( ");
+			sql.AppendLine(" 	  CHARACTER_NAME ");
+			sql.AppendLine(" 	, KANA ");
+			sql.AppendLine(" 	, ORGANIZATION ");
+			sql.AppendLine(" ) VALUES ( ");
+			sql.AppendLine(" 	  :Name ");
+			sql.AppendLine(" 	, :Furigana ");
+			sql.AppendLine(" 	, :OrganizationId ");
+			sql.AppendLine(" ) ");
+
+			return await this.Connection.ExecuteAsync(sql.ToString(), character);
+		}
+
+		/// <summary>キャラクターを登録します。（非同期）</summary>
+		/// <param name="characters">登録するキャラクターを表すList<BleachCharacter>。</param>
+		/// <returns>登録件数を表すint。</returns>
+		public async Task<int> RegistCharactersAsync(List<BleachCharacter> characters)
+		{
+			var sql = new StringBuilder(300);
+			sql.AppendLine(" INSERT INTO CHARACTERS( ");
+			sql.AppendLine(" 	  CHARACTER_NAME ");
+			sql.AppendLine(" 	, KANA ");
+			sql.AppendLine(" 	, ORGANIZATION ");
+			sql.AppendLine(" ) VALUES ( ");
+			sql.AppendLine(" 	  :Name ");
+			sql.AppendLine(" 	, :Furigana ");
+			sql.AppendLine(" 	, :OrganizationId ");
+			sql.AppendLine(" ) ");
+
+			return await this.Connection.ExecuteAsync(sql.ToString(), characters);
+		}
+
+		/// <summary>ふりがなを指定してキャラクターを削除します。（非同期）</summary>
+		/// <param name="characters">削除するキャラクターを表すList<BleachCharacter>。</param>
+		/// <returns>削除件数を表すint。</returns>
+		public async Task<int> DeleteCharactersByKanaAsync(List<BleachCharacter> characters)
+		{
+			var sql = new StringBuilder(100);
+			sql.AppendLine(" DELETE FROM CHARACTERS ");
+			sql.AppendLine(" WHERE ");
+			sql.AppendLine(" 	KANA IN :Furigana ");
+
+			return await this.Connection.ExecuteAsync(sql.ToString(), new { Furigana = characters.Select(b => b.Furigana).ToList() });
 		}
 	}
 }

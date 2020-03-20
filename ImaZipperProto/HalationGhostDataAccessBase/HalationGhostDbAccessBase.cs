@@ -4,7 +4,7 @@ using System.Data.Common;
 namespace HalationGhost.WinApps.DatabaseAccesses
 {
 	/// <summary>DBアクセスのベースクラスを表します。</summary>
-	public abstract class HalationGhostDbAccessBase : IDisposable
+	public abstract class HalationGhostDbAccessBase : IDbAccess, IDisposable
 	{
 		/// <summary>データベースのコネクションを表します。</summary>
 		protected DbConnection Connection { get; private set; } = null;

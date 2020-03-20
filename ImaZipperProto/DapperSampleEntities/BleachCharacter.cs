@@ -1,6 +1,5 @@
 ﻿using HalationGhost;
 using Reactive.Bindings;
-using Reactive.Bindings.Extensions;
 
 namespace DapperSample
 {
@@ -51,7 +50,6 @@ namespace DapperSample
 			}
 		}
 
-
 		//public ReactivePropertySlim<string> Name { get; }
 
 		public ReactivePropertySlim<string> Furigana { get; set; }
@@ -80,6 +78,17 @@ namespace DapperSample
 			this.ZanpakutouId = new ReactivePropertySlim<long>(0);
 			this.ZanpakutouName = new ReactivePropertySlim<string>(string.Empty);
 			this.BankaiName = new ReactivePropertySlim<string>(string.Empty);
+		}
+
+		/// <summary>コンストラクタ。</summary>
+		/// <param name="characterName">キャラクター名を表す文字列。</param>
+		/// <param name="kana">キャラクター名のフリガナを表す文字列。</param>
+		/// <param name="orgId">所属する組織IDを表すlong。</param>
+		public BleachCharacter(string characterName, string kana, long orgId) : this()
+		{
+			this._name.Value = characterName;
+			this.Furigana.Value = kana;
+			this.OrganizationId.Value = orgId;
 		}
 	}
 }
