@@ -29,17 +29,27 @@
 このプロトタイプアプリの実装内容をブログで紹介しています。
 
 ### [WPF MVVM L@bo #1 ～ お前はまだ MahApps.Metro を知らない ～](https://elf-mission.net/programming/wpf/mvvm-labo/phase01/)
+2019/12/25 公開  
 新シリーズの第 1 回目なのでプロトタイプアプリの紹介を兼ねて長い前置きを書いたエントリ。  
 技術的な紹介としては MahApps.Metro に含まれるコントロールの内、TransitioningContentControl や TextBoxHelper 等他ではあまり紹介されていない機能を紹介しています。
 
 ### [WPF MVVM L@bo #2 ～ MVVM さえあればいい。 ～](https://elf-mission.net/programming/wpf/mvvm-labo/phase02/)
+2020/1/12 公開  
 .NET Core で作成した WPF アプリからコモンダイアログを表示する方法と FolderBrowserDialog の .NET Core 対応状況を紹介しています。
 加えて、MVVM パターンで実装する場合に注意すべき点や重要なポイントも紹介しています。
 
 ### [WPF MVVM L@bo #3 ～ SQLite ですが? ～](https://elf-mission.net/programming/wpf/mvvm-labo/phase03/)
+2020/1/25 公開  
 いつもとは少し毛色の違うエントリで、.NET Core で SQLite を使用する方法とその周辺で使用するツールを紹介するエントリ。
 
 ### [WPF MVVM L@bo #4 ～ DB が見えるのは嫌なので 3 階層 に AbstractFactory したいと思います。 ～](https://elf-mission.net/programming/wpf/mvvm-labo/phase04/)
+2020/2/15 公開  
 プロトタイプアプリから DB にアクセスするための 3 階層アーキテクチャと使用する DB をアプリケーション層から隠蔽するための AbstractFactory パターンを紹介しているエントリ。
 
+### [WPF MVVM L@bo #5 ～ ようこそ Dapper 至上主義の DataAccess へ ～](https://elf-mission.net/programming/wpf/mvvm-labo/phase05/)
+2020/3/21 公開  
+3 階層アーキテクチャのデータ層で Micro-O/R マッパーの Dapper を使用して SQLite からデータを読み書きする方法を紹介しています。  
+DB から取得したデータを Dapper からクラスへマッピングする方法や、Select SQL 発行時のバインド変数にマッピングする方を主に紹介しています。
+
+ブログのエントリは #5 を最後に一時休止中です。
 
